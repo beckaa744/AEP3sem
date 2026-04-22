@@ -1,0 +1,76 @@
+/* BOTÃO FLUTUANTE */
+.chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  background-color: #4f495e;
+  color: white;
+  cursor: pointer;
+  z-index: 999;
+}
+
+/* CAIXA DO CHAT */
+.chatbox {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* HEADER */
+.chat-header {
+  background: #4f495e;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* CORPO */
+.chat-body {
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* MENSAGENS */
+.message {
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
+.bot {
+  background: #eee;
+}
+
+/* BOTÕES */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-btn {
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.option-btn:hover {
+  background: #ddd;
+}
