@@ -1,33 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Aprenda com o Celular</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <style>
-    html,
-    body {
+    html, body {
       overflow-y: auto !important;
       height: auto !important;
     }
 
-    .texture-left {
-      position: relative;
+    ::placeholder {
+      color: #fff !important;
+      opacity: 0.5;
     }
 
-    ::placeholder {
-  color: #fff !important;
-  opacity: 0.5;
-}
+    /* SPA: oculta/exibe páginas */
+    .pagina { display: none; }
+    .pagina.ativa { display: block; }
+
+    /* Imagens da hero clicáveis */
+    .hero-img-wrap {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .hero-img-wrap:hover { opacity: 0.85; }
+
+    /* Páginas internas — seções alternadas */
+    .section-pagina {
+      padding: 2rem 0;
+    }
+    .section-pagina-alt {
+      padding: 2rem 0;
+      background-color: #f5faf9;
+    }
+
+    /* Cabeçalho das páginas internas */
+    .page-header {
+      background: linear-gradient(135deg, #2e2a36 60%, #3d3a47);
+      padding: 4rem 0 3rem;
+      color: #fff;
+    }
+    .page-header h1 { font-size: 2.2rem; font-weight: 700; }
+    .page-header p  { font-size: 1.15rem; opacity: 0.8; max-width: 700px; }
+
+    /* Card de dica/alerta no estilo da página */
+    .dica-card {
+      background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%);
+      border: 0.5px solid #d0e8e4;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 3rem 0 4rem;
+    }
+    .dica-card h4 { font-size: 1.2rem; font-weight: 600; color: #2e2a36; }
+    .dica-card p  { font-size: 1rem; color: #444; margin: 0; }
+
+    /* Passo: número decorativo */
+    .passo-num {
+      display: inline-block;
+      background-color: #2e2a36;
+      color: #fff;
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      line-height: 2.2rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
   </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg py-4 navbar-dark fixed-top" style="border-bottom: 0.5px solid rgba(255,255,255,0.3); background-color: #27242f;">    <div class="container">
-      <a class="navbar-brand text-white" href="#">Navbar</a>
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVBAR — única, compartilhada por todas as páginas
+  ═══════════════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg py-4 navbar-dark fixed-top"
+    style="border-bottom: 0.5px solid rgba(255,255,255,0.3); background-color: #27242f;">
+    <div class="container">
+      <a class="navbar-brand text-white fw-bold" href="#" onclick="mostrarPagina('home')">Aprenda com o Celular</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
@@ -37,30 +93,26 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
           <li class="nav-item">
-            <a class="nav-link active text-white" href="#">Home</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Link</a>
+            <a class="nav-link text-white" id="nav-home" href="#" onclick="mostrarPagina('home')">Home</a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
-              Dropdown
+            <a class="nav-link dropdown-toggle text-white" id="nav-apps" href="#" data-bs-toggle="dropdown">
+              Aplicativos
             </a>
-
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" id="nav-agenda" href="#" onclick="mostrarPagina('googleagenda')">📅 Google Agenda</a></li>
+              <li><a class="dropdown-item" id="nav-sus"    href="#" onclick="mostrarPagina('susdigital')">🏥 Meu SUS Digital</a></li>
+              <li><a class="dropdown-item" id="nav-whats"  href="#" onclick="mostrarPagina('whatsapp')">💬 WhatsApp</a></li>
             </ul>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link disabled text-white">Disabled</a>
+            <a class="nav-link text-white" id="nav-seguranca" href="#" onclick="mostrarPagina('seguranca')">Dicas de Segurança</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-white" id="nav-sobre" href="#" onclick="mostrarPagina('sobre')">Sobre</a>
           </li>
 
         </ul>
@@ -69,424 +121,930 @@
           <input class="form-control me-2" type="search" placeholder="Search" />
           <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
-
       </div>
     </div>
   </nav>
 
 
-  <section>
-<div style="height: 1100px; position: relative; overflow: hidden; background-color: #2e2a36;">
+  <!-- ═══════════════════════════════════════════════════
+       PÁGINA: HOME
+  ═══════════════════════════════════════════════════ -->
+  <div id="pagina-home" class="pagina ativa">
 
-      <!-- TEXTO: dentro do container -->
-      <div class="d-flex align-items-center h-100 w-100 text-start" style="position: absolute; top: 0; left: 0;">
-        <div class="container">
-          <div class="col-12 col-lg-5">
-            <h1 class="display-4 fw-bold mb-3 text-white">Título principal Título principal Título principal Título
-              principal</h1>
-            <p class="opacity-75 mb-4 text-white">
-               Um exemplo de texto explicativo para apresentar uma funcionalidade importante do site.
-            </p>
-            <div class="d-flex gap-3 flex-wrap">
-              <a class="btn btn-lg btn-primary" href="#">Nossa plataforma &rsaquo;</a>
-              <a class="btn btn-lg btn-outline-light" href="#">Solicite uma demonstração &rsaquo;</a>
+    <section>
+      <div style="height: 850px; position: relative; overflow: hidden; background-color: #2e2a36;">
+
+        <!-- TEXTO -->
+        <div class="d-flex align-items-center h-100 w-100 text-start" style="position: absolute; top: 0; left: 0;">
+          <div class="container">
+            <div class="col-12 col-lg-5">
+              <h1 class="display-4 fw-bold mb-3 text-white">Aprender não tem idade</h1>
+              <p class="opacity-75 mb-4 text-white">
+                Uma plataforma de aprendizado com guias simples e passo a passo, desenvolvida para ajudar você a utilizar o celular e aplicativos do dia a dia com segurança e confiança.
+              </p>
+              <div class="d-flex gap-3 flex-wrap">
+                <a class="btn btn-lg btn-primary" href="#" onclick="mostrarPagina('sobre')">Nossa plataforma &rsaquo;</a>
+                <a class="btn btn-lg btn-outline-light" href="#duvidas">Envie sua dúvida &rsaquo;</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- IMAGENS: coladas na borda direita -->
-      <div class="d-none d-lg-block"
-        style="position: absolute; top: 50%; transform: translateY(-50%); right: 0; width: 40%; padding-left: 24px;">
+        <!-- IMAGENS clicáveis (sem botão) -->
+        <div class="d-none d-lg-block"
+          style="position: absolute; top: 50%; transform: translateY(-50%); right: 0; width: 40%; padding-left: 24px;">
 
-        <div style="
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 300px 300px;
-    gap: 12px;
-  ">
+          <div style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 300px 300px;
+            gap: 12px;
+          ">
 
-          <!-- Imagem 1 -->
-          <div style="border-radius: 16px; overflow: hidden;">
-            <img src="https://placehold.co/400x400/c8f0ef/333?text=Imagem+1"
+            <!-- Imagem 1 → Google Agenda -->
+            <div style="border-radius: 16px; overflow: hidden;">
+            <img src="./imgs/1.png"
               style="width: 100%; height: 100%; object-fit: cover;">
           </div>
 
           <!-- Imagem 2 (cortada na direita) -->
           <div style="border-radius: 16px 0 0 16px; overflow: hidden;">
-            <img src="https://placehold.co/400x400/e8c8a0/333?text=Imagem+2"
+            <img src="./imgs/2.png"
               style="width: 100%; height: 100%; object-fit: cover;">
           </div>
 
           <!-- Imagem 3 (ocupando as duas colunas) -->
           <div style="
-      grid-column: span 2;
-      border-radius: 16px 0 0 16px;
-      overflow: hidden;
-    ">
-            <img src="https://placehold.co/800x300/d8caef/333?text=Imagem+3"
+            grid-column: span 2;
+            border-radius: 16px 0 0 16px;
+            overflow: hidden;
+          ">
+            <img src="./imgs/3.png"
               style="width: 100%; height: 100%; object-fit: cover;">
           </div>
 
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-<section>
-<div class="py-5" style="background: linear-gradient(to bottom right, #e4f7f3, #e4f7f3); min-height: 840px;">
-  
-  <div class="container">
-    <h2 class="fw-medium mb-2 mt-5" style="font-size: 50px;">Alguns números que comprovam algumas coisas</h2>
-    <p class="text-dark mb-5" style="font-size: 23px; max-width: 480px;">
-      Uma breve descrição que contextualiza os indicadores abaixo e reforça a proposta de valor da solução.
-    </p>
-
-    <div class="row justify-content-center g-3">
-
-      <div class="col-12 col-md-4">
-        <div class="p-4 rounded-3 d-flex flex-column align-items-center gap-2 h-100"
-          style="background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%); border: 0.5px solid #d0e8e4;">
-          <span class="fw-medium" style="font-size: 60px; line-height: 1;">82%</span>
-           <span class="text-dark" style="font-size: 20px;"> Idosos já sofreram tentativas de golpes digitais</span>
-          <span class="text-dark" style="font-size: 15px;">De acordo com pesquisas realizadas por órgãos como o SEADE, 
-            a grande maioria dos idosos já foi alvo de tentativas de golpes digitais, 
-            como mensagens falsas, ligações suspeitas ou links enganosos. Mesmo que nem todos sejam vítimas, esse dado evidencia o 
-            quanto esse público é frequentemente visado por criminosos no ambiente digital.</span>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4">
-        <div class="p-4 rounded-3 d-flex flex-column align-items-center gap-2 h-100"
-          style="background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%); border: 0.5px solid #d0e8e4;">
-          <span class="fw-medium" style="font-size: 60px; line-height: 1;">75%</span>
-          <span class="text-dark" style="font-size: 20px;">Idosos fora da internet</span>
-          <span class="text-dark" style="font-size: 15px;">De acordo com pesquisas nacionais sobre o uso da internet no Brasil, cerca de 34% dos idosos ainda não utilizam a internet. Isso dificulta o acesso a serviços importantes, como plataformas do governo e saúde digital, 
-            além de limitar a comunicação e o acesso à informação no dia a dia.</span>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4">
-        <div class="p-4 rounded-3 d-flex flex-column align-items-center gap-2 h-100"
-          style="background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%); border: 0.5px solid #d0e8e4;">
-          <span class="fw-medium" style="font-size: 60px; line-height: 1;">60%</span>
-          <span class="text-dark" style="font-size: 20px;">Idosos precisam de ajuda para usar aplicativos e serviços digitais</span>
-          <span class="text-dark" style="font-size: 15px;">De acordo com pesquisas sobre inclusão digital no Brasil, cerca de 70% dos idosos precisam de ajuda para utilizar aplicativos e serviços online. 
-            Isso mostra que, mesmo quando têm acesso à tecnologia, muitos ainda enfrentam dificuldades no uso, reforçando a importância de orientação clara,
-             acessível e adaptada para esse público.</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-</section>
-
-  <section class="container mt-5">
-
-    <div class="row align-items-center">
-
-      <!-- TEXTO -->
-      <div class="col-md-6">
-        <h1 class="mb-3">Aprenda a usar seu celular</h1>
-
-        <p class="fs-5">
-          Hoje em dia, o celular pode facilitar muito o seu dia a dia.
-          Com ele, você pode acessar serviços importantes como consultas médicas,
-          aplicativos de banco e serviços do governo.
-        </p>
-
-        <p class="fs-5">
-          Nosso objetivo é te ajudar com guias simples e fáceis de entender,
-          para que você se sinta mais seguro usando a tecnologia.
-        </p>
-      </div>
-
-      <!-- IMAGEM -->
-      <div class="col-md-6 text-center">
-        <img src="./imgs/Mobile login-bro.svg" class="img-fluid rounded-4" style="max-width: 500px; width: 100%;"
-          alt="Imagem exemplo">
-      </div>
-  </section>
-
- <!-- CAIXA DE PERGUNTAS -->
-  <section>
- <div class="py-5" style="margin-top: 200px; margin-bottom: 150px;">
-  <div class="container">
-
-    <div id="carouselDepoimentos" class="carousel slide" data-bs-ride="false">
-      <div class="carousel-inner mb-5">
-
-        <!-- Slide 1 (cards 1, 2, 3) -->
-        <div class="carousel-item active">
-          <div class="row g-4">
-
-            <div class="col-12 col-md-4">
-              <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
-                <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
-                  "Não estou conseguindo entrar no gov.br, aparece erro ou não entra. O que eu faço?"
-                </p>
-                <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
-                  Primeiro, verifique se você digitou corretamente seu CPF e sua senha, sem espaços ou números errados. 
-                  Se mesmo assim não funcionar, tente clicar na opção “Esqueci minha senha” para criar uma nova. Também é importante conferir se você está conectado à internet. 
-                  Caso o problema continue, pode ser instabilidade no sistema, então tente novamente mais tarde.
-                </p>
-                <div class="mt-4">
-                  <p class="mb-0 fw-medium" style="font-size: 14px; color: #2e2b38;">Nome 1</p>
-                  <p class="mb-0" style="font-size: 13px; color: #555;">Cargo, Empresa</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-              <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
-                <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
-                  "Esqueci minha senha e agora não consigo acessar nenhum serviço, como posso recuperar?"
-                </p>
-                <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
-                  Na tela de login, clique em “Esqueci minha senha”. Você poderá escolher formas de recuperação, como receber um código por SMS, e-mail ou responder algumas perguntas. 
-                  Siga cada passo com calma. 
-                  Se tiver dificuldade, peça ajuda a alguém de confiança, mas nunca informe sua senha completa.
-                </p>
-                <div class="mt-4">
-                  <p class="mb-0 fw-medium" style="font-size: 14px; color: #2e2b38;">Nome 2</p>
-                  <p class="mb-0" style="font-size: 13px; color: #555;">Cargo, Empresa</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-              <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
-                <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
-                  "Estou esperando o código de verificação e ele não chega, o que pode ser?"
-                </p>
-                <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
-                  Verifique se o número de telefone ou e-mail cadastrados estão corretos. 
-                  Veja também se a mensagem não foi para a caixa de spam. 
-                  Às vezes o envio pode demorar alguns minutos. Se não chegar, tente solicitar o código novamente.
-                </p>
-                <div class="mt-4">
-                  <p class="mb-0 fw-medium" style="font-size: 14px; color: #2e2b38;">Nome 3</p>
-                  <p class="mb-0" style="font-size: 13px; color: #555;">Cargo, Empresa</p>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
-        <!-- Fim Slide 1 -->
-
-        <!-- Slide 2 (cards 4, 5) -->
-        <div class="carousel-item">
-          <div class="row g-4">
-
-            <div class="col-12 col-md-4">
-              <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
-                <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
-                  "Tenho medo de clicar em algo errado no aplicativo do banco, posso acabar perdendo dinheiro?"
-                </p>
-                <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
-                  É normal ter esse medo no início. Para evitar problemas, leia com atenção antes de confirmar qualquer ação, especialmente transferências. 
-                  Evite clicar em links recebidos por mensagens e use apenas o aplicativo oficial do banco. 
-                  Sempre confira os dados antes de finalizar qualquer operação.
-                </p>
-                <div class="mt-4">
-                  <p class="mb-0 fw-medium" style="font-size: 14px; color: #2e2b38;">Nome 4</p>
-                  <p class="mb-0" style="font-size: 13px; color: #555;">Cargo, Empresa</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-              <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
-                <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
-                  "Recebi uma mensagem dizendo que preciso atualizar meus dados do banco e pedindo para clicar em um link, isso é seguro?"
-                </p>
-                <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
-                  Não. Bancos não pedem informações pessoais ou senhas por mensagens ou links. 
-                  Esse tipo de mensagem geralmente é golpe. Nunca clique e não informe seus dados.
-                  Se estiver em dúvida, entre diretamente no aplicativo oficial do banco.
-                </p>
-                <div class="mt-4">
-                  <p class="mb-0 fw-medium" style="font-size: 14px; color: #2e2b38;">Nome 5</p>
-                  <p class="mb-0" style="font-size: 13px; color: #555;">Cargo, Empresa</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- Fim Slide 2 -->
 
       </div>
-      <!-- Fim carousel-inner -->
+    </section>
 
 
+    <section>
+      <div class="py-5" style="background: linear-gradient(to bottom right, #e4f7f3, #e4f7f3); min-height: 420px;">
+        <div class="container">
+          <h2 class="fw-medium mb-2 mt-5" style="font-size: 50px;">Alguns números que comprovam algumas coisas</h2>
+          <p class="text-dark mb-5" style="font-size: 23px; max-width: 480px;">
+            Uma breve descrição que contextualiza os indicadores abaixo e reforça a proposta de valor da solução.
+          </p>
 
-      <!-- Controles -->
-      <div class="d-flex justify-content-center gap-3 mt-4">
-        <button class="btn rounded-circle d-flex align-items-center justify-content-center"
-          data-bs-target="#carouselDepoimentos" data-bs-slide="prev"
-          style="width: 40px; height: 40px; background: #2e2b38; color: #fff; border: none; font-size: 16px;">
-          ‹
-        </button>
-        <button class="btn rounded-circle d-flex align-items-center justify-content-center"
-          data-bs-target="#carouselDepoimentos" data-bs-slide="next"
-          style="width: 40px; height: 40px; background: #2e2b38; color: #fff; border: none; font-size: 16px;">
-          ›
-        </button>
-      </div>
+          <div class="row justify-content-center g-3">
 
-    </div>
-  </div>
-</div>
-  </section>
-
-
-<section>
-  
-<div class="py-5" style="background: linear-gradient(to bottom right, #e4f7f3, #b297e5); min-height: 840px;">
-  <div class="container">
-
-  <!-- Título centralizado -->
-  <div class="text-center mb-5">
-    <h2 class="fw-medium" style="font-size: 50px;">Entre em contato conosco</h2>
-    <p class="text-secondary mt-2" style="font-size: 20px;">Preencha o formulário abaixo e deixe sua mensagem! Retornaremos via e-mail</p>
-  </div>
-
-
-</div>
-  
-  <div class="container">
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-10">
-        <div class="rounded-4 p-5" style="background-color: #2e2b38;">
-
-          <div class="row">
-
-            <!-- Coluna esquerda -->
-            <div class="col-12 col-md-5 mb-4 mb-md-0 d-flex flex-column justify-content-between">
-              <div>
-                <h3 class="fw-medium mb-3" style="color: #ffffff; font-size: 22px;">NOME</h3>
-                <p style="color: #aaa; font-size: 14px; line-height: 1.7;">
-                  Criamos tecnologia que transforma edifícios em uma extensão das pessoas que trabalham dentro deles.
-                </p>
-                <button class="btn mt-3 fw-medium d-flex align-items-center gap-2" style="background:#fff; color:#2e2b38; border-radius: 8px; padding: 10px 20px; font-size: 14px;">
-                  Solicite uma demonstração <span>›</span>
-                </button>
+            <div class="col-12 col-md-4">
+              <div class="p-4 rounded-3 d-flex flex-column align-items-center gap-2 h-100"
+                style="background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%); border: 0.5px solid #d0e8e4;">
+                <span class="fw-medium" style="font-size: 60px; line-height: 1;">82%</span>
+                <span class="text-dark" style="font-size: 20px;">Idosos já sofreram tentativas de golpes digitais</span>
+                <span class="text-dark" style="font-size: 15px;">De acordo com pesquisas realizadas por órgãos como o SEADE,
+                  a grande maioria dos idosos já foi alvo de tentativas de golpes digitais,
+                  como mensagens falsas, ligações suspeitas ou links enganosos. Mesmo que nem todos sejam vítimas, esse dado evidencia o
+                  quanto esse público é frequentemente visado por criminosos no ambiente digital.</span>
               </div>
-
-              
             </div>
 
-            <!-- Coluna direita: formulário -->
-            <div class="col-12 col-md-7">
-              <h5 class="fw-medium mb-4" style="color: #fff; font-size: 16px;">CONTATE-NOS</h5>
+            <div class="col-12 col-md-4">
+              <div class="p-4 rounded-3 d-flex flex-column align-items-center gap-2 h-100"
+                style="background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%); border: 0.5px solid #d0e8e4;">
+                <span class="fw-medium" style="font-size: 60px; line-height: 1;">75%</span>
+                <span class="text-dark" style="font-size: 20px;">Idosos fora da internet</span>
+                <span class="text-dark" style="font-size: 15px;">De acordo com pesquisas nacionais sobre o uso da internet no Brasil, cerca de 34% dos idosos ainda não utilizam a internet. Isso dificulta o acesso a serviços importantes, como plataformas do governo e saúde digital,
+                  além de limitar a comunicação e o acesso à informação no dia a dia.</span>
+              </div>
+            </div>
 
-              <div class="row g-3">
-
-                <div class="col-6">
-                  <label style="font-size: 12px; color: #b297e5;">Primeiro nome *</label>
-                  <input type="text" class="form-control mt-1" placeholder="Digite seu nome"
-                    style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
-                </div>
-
-                <div class="col-6">
-                  <label style="font-size: 12px; color: #b297e5;">Sobrenome *</label>
-                  <input type="text" class="form-control mt-1" placeholder="Digite seu nome"
-                    style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
-                </div>
-
-                <div class="col-6">
-                  <label style="font-size: 12px; color: #b297e5;">E-mail *</label>
-                  <input type="email" class="form-control mt-1" placeholder="Insira seu e-mail"
-                    style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
-                </div>
-
-                <div class="col-6">
-                  <label style="font-size: 12px; color: #b297e5;">Número de telefone celular *</label>
-                  <input type="tel" class="form-control mt-1" placeholder="Digite seu número"
-                    style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
-                </div>
-
-                <div class="col-12">
-                  <label style="font-size: 12px; color: #b297e5;">Região</label>
-                  <select class="form-select mt-1"
-                    style="background: #3d3a47; border: 1px solid #555; color: #aaa; border-radius: 8px; font-size: 14px;">
-                    <option>Por favor, selecione</option>
-                    <option>Brasil</option>
-                    <option>Portugal</option>
-                    <option>Outro</option>
-                  </select>
-                </div>
-
-                <div class="col-12">
-                  <label style="font-size: 12px; color: #b297e5;">Mensagem *</label>
-                  <textarea class="form-control mt-1" rows="4" placeholder="Digite sua mensagem*"
-                    style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px; resize: none;"></textarea>
-                </div>
-
-                <div class="col-12">
-                  <p style="font-size: 11px; color: #888; line-height: 1.6;">
-                    Precisamos das suas informações de contato para entrar em contato sobre nossos produtos e serviços. Você pode cancelar a assinatura dessas comunicações a qualquer momento.
-                  </p>
-                </div>
-
-                <div class="col-12">
-                  <button class="btn d-flex align-items-center gap-2 fw-medium"
-                    style="background: #b297e5; color: #fff; border-radius: 8px; padding: 10px 24px; font-size: 14px;">
-                    Enviar <span>›</span>
-                  </button>
-                </div>
-
+            <div class="col-12 col-md-4">
+              <div class="p-4 rounded-3 d-flex flex-column align-items-center gap-2 h-100"
+                style="background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%); border: 0.5px solid #d0e8e4;">
+                <span class="fw-medium" style="font-size: 60px; line-height: 1;">60%</span>
+                <span class="text-dark" style="font-size: 20px;">Idosos precisam de ajuda para usar aplicativos e serviços digitais</span>
+                <span class="text-dark" style="font-size: 15px;">De acordo com pesquisas sobre inclusão digital no Brasil, cerca de 70% dos idosos precisam de ajuda para utilizar aplicativos e serviços online.
+                  Isso mostra que, mesmo quando têm acesso à tecnologia, muitos ainda enfrentam dificuldades no uso, reforçando a importância de orientação clara,
+                  acessível e adaptada para esse público.</span>
               </div>
             </div>
 
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-  </div>
-</div>
-
-
-</section>
-
-
-  <!-- BOTÃO DO CHAT -->
-  <button id="chat-toggle" class="chat-btn">
-    💬
-  </button>
-
-  <!-- CAIXA DO CHAT -->
-  <div id="chatbox" class="chatbox">
-    <div class="chat-header">
-      <span>Atendimento</span>
-      <button id="close-chat">✖</button>
-    </div>
-
-    <div class="chat-body" id="chat-body">
-      <div class="message bot">
-        Olá! Como posso te ajudar?
+    <section class="container mt-5">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="mb-3">Aprenda a usar seu celular</h1>
+          <p class="fs-5">
+            Hoje em dia, o celular pode facilitar muito o seu dia a dia.
+            Com ele, você pode acessar serviços importantes como consultas médicas,
+            aplicativos de banco e serviços do governo.
+          </p>
+          <p class="fs-5">
+            Nosso objetivo é te ajudar com guias simples e fáceis de entender,
+            para que você se sinta mais seguro usando a tecnologia.
+          </p>
+        </div>
+        <div class="col-md-6 text-center">
+          <img src="./imgs/Mobile login-bro.svg" class="img-fluid rounded-4" style="max-width: 500px; width: 100%;" alt="Imagem exemplo">
+        </div>
       </div>
+    </section>
 
-      <div class="options">
-        <button class="option-btn">SUS</button>
-        <button class="option-btn">GOV</button>
+    <!-- CAIXA DE PERGUNTAS -->
+    <section>
+      <div class="py-5" style="margin-top: 100px; margin-bottom: 75px;">
+        <div class="container">
+
+          <div id="carouselDepoimentos" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner mb-5">
+
+              <!-- Slide 1 -->
+              <div class="carousel-item active">
+                <div class="row g-4">
+
+                  <div class="col-12 col-md-4">
+                    <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
+                      <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
+                        "Como faço para mandar um áudio no WhatsApp? Tenho dificuldade em digitar pelo celular."
+                      </p>
+                      <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
+                        É bem simples! Abra a conversa com a pessoa que você quer chamar. No canto de baixo da tela, do lado direito, você vai ver um botão verde com o desenho de um microfone. Coloque o dedo em cima dele, segure apertado e fale. Quando terminar, é só tirar o dedo — a mensagem é enviada automaticamente!
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
+                      <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
+                        "Esqueci minha senha e agora não consigo acessar nenhum serviço, como posso recuperar?"
+                      </p>
+                      <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
+                        Na tela de login, clique em "Esqueci minha senha". Você poderá escolher formas de recuperação, como receber um código por SMS, e-mail ou responder algumas perguntas.
+                        Siga cada passo com calma.
+                        Se tiver dificuldade, peça ajuda a alguém de confiança, mas nunca informe sua senha completa.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
+                      <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
+                        "Estou esperando o código de verificação e ele não chega, o que pode ser?"
+                      </p>
+                      <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
+                        Verifique se o número de telefone ou e-mail cadastrados estão corretos.
+                        Veja também se a mensagem não foi para a caixa de spam.
+                        Às vezes o envio pode demorar alguns minutos. Se não chegar, tente solicitar o código novamente.
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="carousel-item">
+                <div class="row g-4">
+
+                  <div class="col-12 col-md-4">
+                    <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
+                      <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
+                        "Tenho medo de clicar em algo errado no aplicativo do banco, posso acabar perdendo dinheiro?"
+                      </p>
+                      <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
+                        É normal ter esse medo no início. Para evitar problemas, leia com atenção antes de confirmar qualquer ação, especialmente transferências.
+                        Evite clicar em links recebidos por mensagens e use apenas o aplicativo oficial do banco.
+                        Sempre confira os dados antes de finalizar qualquer operação.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="p-4 rounded-4 h-100" style="background-color: #c8ece6;">
+                      <p class="fw-medium mb-3" style="font-size: 18px; color: #2e2b38; line-height: 1.5;">
+                        "Recebi uma mensagem dizendo que preciso atualizar meus dados do banco e pedindo para clicar em um link, isso é seguro?"
+                      </p>
+                      <p class="mb-0" style="font-size: 15px; color: #2e2b38; line-height: 1.7;">
+                        Não. Bancos não pedem informações pessoais ou senhas por mensagens ou links.
+                        Esse tipo de mensagem geralmente é golpe. Nunca clique e não informe seus dados.
+                        Se estiver em dúvida, entre diretamente no aplicativo oficial do banco.
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Controles -->
+            <div class="d-flex justify-content-center gap-3 mt-4">
+              <button class="btn rounded-circle d-flex align-items-center justify-content-center"
+                data-bs-target="#carouselDepoimentos" data-bs-slide="prev"
+                style="width: 40px; height: 40px; background: #2e2b38; color: #fff; border: none; font-size: 16px;">‹</button>
+              <button class="btn rounded-circle d-flex align-items-center justify-content-center"
+                data-bs-target="#carouselDepoimentos" data-bs-slide="next"
+                style="width: 40px; height: 40px; background: #2e2b38; color: #fff; border: none; font-size: 16px;">›</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="py-5" style="background: linear-gradient(to bottom right, #e4f7f3, #b297e5); min-height: 420px;">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="fw-medium" style="font-size: 50px;">Entre em contato conosco</h2>
+            <p class="text-secondary mt-2" style="font-size: 20px;">Preencha o formulário abaixo e deixe sua mensagem! Retornaremos via e-mail</p>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+              <div class="rounded-4 p-5" style="background-color: #2e2b38;">
+                <div class="row">
+
+                  <div class="col-12 col-md-5 mb-4 mb-md-0 d-flex flex-column justify-content-between">
+                    <div>
+                      <h3 class="fw-medium mb-3" style="color: #ffffff; font-size: 22px;">NOME</h3>
+                      <p style="color: #aaa; font-size: 14px; line-height: 1.7;">
+                        Criamos tecnologia que transforma edifícios em uma extensão das pessoas que trabalham dentro deles.
+                      </p>
+                      <button class="btn mt-3 fw-medium d-flex align-items-center gap-2"
+                        style="background:#fff; color:#2e2b38; border-radius: 8px; padding: 10px 20px; font-size: 14px;">
+                        Solicite uma demonstração <span>›</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-7">
+                    <h5 class="fw-medium mb-4" style="color: #fff; font-size: 16px;">CONTATE-NOS</h5>
+                    <div class="row g-3">
+
+                      <div class="col-6">
+                        <label style="font-size: 12px; color: #b297e5;">Primeiro nome *</label>
+                        <input type="text" class="form-control mt-1" placeholder="Digite seu nome"
+                          style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
+                      </div>
+
+                      <div class="col-6">
+                        <label style="font-size: 12px; color: #b297e5;">Sobrenome *</label>
+                        <input type="text" class="form-control mt-1" placeholder="Digite seu nome"
+                          style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
+                      </div>
+
+                      <div class="col-6">
+                        <label style="font-size: 12px; color: #b297e5;">E-mail *</label>
+                        <input type="email" class="form-control mt-1" placeholder="Insira seu e-mail"
+                          style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
+                      </div>
+
+                      <div class="col-6">
+                        <label style="font-size: 12px; color: #b297e5;">Número de telefone celular *</label>
+                        <input type="tel" class="form-control mt-1" placeholder="Digite seu número"
+                          style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px;">
+                      </div>
+
+                      <div class="col-12">
+                        <label style="font-size: 12px; color: #b297e5;">Região</label>
+                        <select class="form-select mt-1"
+                          style="background: #3d3a47; border: 1px solid #555; color: #aaa; border-radius: 8px; font-size: 14px;">
+                          <option>Por favor, selecione</option>
+                          <option>Brasil</option>
+                          <option>Portugal</option>
+                          <option>Outro</option>
+                        </select>
+                      </div>
+
+                      <div class="col-12">
+                        <label style="font-size: 12px; color: #b297e5;">Mensagem *</label>
+                        <textarea class="form-control mt-1" rows="4" placeholder="Digite sua mensagem*"
+                          style="background: #3d3a47; border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 14px; resize: none;"></textarea>
+                      </div>
+
+                      <div class="col-12">
+                        <p style="font-size: 11px; color: #888; line-height: 1.6;">
+                          Precisamos das suas informações de contato para entrar em contato sobre nossos produtos e serviços. Você pode cancelar a assinatura dessas comunicações a qualquer momento.
+                        </p>
+                      </div>
+
+                      <div class="col-12">
+                        <button class="btn d-flex align-items-center gap-2 fw-medium"
+                          style="background: #b297e5; color: #fff; border-radius: 8px; padding: 10px 24px; font-size: 14px;">
+                          Enviar <span>›</span>
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTÃO DO CHAT -->
+    <button id="chat-toggle" class="chat-btn">💬</button>
+
+    <!-- CAIXA DO CHAT -->
+    <div id="chatbox" class="chatbox">
+      <div class="chat-header">
+        <span>Atendimento</span>
+        <button id="close-chat">✖</button>
+      </div>
+      <div class="chat-body" id="chat-body">
+        <div class="message bot">Olá! Como posso te ajudar?</div>
+        <div class="options">
+          <button class="option-btn">SUS</button>
+          <button class="option-btn">GOV</button>
+        </div>
       </div>
     </div>
-  </div>
+
+    <link rel="stylesheet" href="chatbot/chatbot.css">
+    <script src="chatbot/chatbot.js" defer></script>
+
+  </div><!-- /pagina-home -->
 
 
+  <!-- ═══════════════════════════════════════════════════
+       PÁGINA: GOOGLE AGENDA
+  ═══════════════════════════════════════════════════ -->
+  <div id="pagina-googleagenda" class="pagina">
 
-  <link rel="stylesheet" href="chatbot/chatbot.css">
-  <script src="chatbot/chatbot.js" defer></script>
+    <!-- Cabeçalho -->
+    <div class="page-header" style="padding-top: 6rem;">
+      <div class="container">
+        <h1>📅 Google Agenda</h1>
+        <p>O seu novo caderno de compromissos! Sabe aquele calendário de papel que costumamos pendurar na cozinha ou a agendinha de telefone que levamos na bolsa? O Google Agenda é exatamente isso, só que dentro do seu celular! A grande vantagem é que ele avisa você — o seu celular vai tocar ou vibrar para te lembrar quando o horário do remédio, do exame médico ou do aniversário de um neto estiver chegando.</p>
+      </div>
+    </div>
+
+    <!-- Passo 1 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">1</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como encontrar e abrir a sua Agenda</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Procure na tela do seu celular por um desenho de um calendário. Ele costuma ser branco com o número "31" no meio, rodeado pelas cores azul, vermelho, amarelo e verde. Encontrou? Dê um toque suave nele com o dedo.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/agenda-passo1.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Ícone do Google Agenda na tela do celular">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 2 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">2</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como anotar um novo compromisso</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Quando o aplicativo abrir, você verá os dias do mês. Para anotar algo novo, basta olhar para o canto de baixo da tela (geralmente do lado direito). Você vai ver um botão redondo e colorido com um símbolo de "mais" (+).
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Toque nesse botão. Ele serve para "adicionar" algo novo. Em seguida, toque na opção chamada "Evento".
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/agenda-passo2.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Botão + para adicionar evento">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 3 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">3</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Dando um nome ao seu compromisso</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              A agenda abriu uma página em branco para você preencher. Bem no topo, tem uma linha piscando onde está escrito "Adicionar título".
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Toque ali e o teclado do celular vai aparecer. Digite o que você precisa lembrar. Por exemplo: "Tomar remédio da pressão", "Consulta com o cardiologista", ou "Almoço de domingo".
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/agenda-passo3.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Campo para adicionar título ao evento">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 4 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">4</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Escolhendo o dia e a hora certa</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Logo abaixo do nome que você digitou, você verá o dia de hoje e o horário. Para mudar o dia, dê um toque em cima da data — um pequeno calendário vai aparecer. Para mudar a hora, toque em cima do horário — um relógio vai aparecer na tela.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/agenda-passo4.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Calendário e relógio para escolher data e hora">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 5 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">5</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">O passo mais importante: Salvar!</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Depois de colocar o nome, o dia e a hora, olhe para a parte bem de cima da tela, do lado direito. Você vai ver a palavra "Salvar". Dê um toque nela. Pronto! A tela vai fechar e você verá o seu compromisso anotado no dia correto.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/agenda-passo5.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Botão Salvar na tela do aplicativo">
+          </div>
+        </div>
+
+        <div class="dica-card">
+          <h4>💡 Não tenha medo de errar!</h4>
+          <p>Se você anotar algo no dia errado ou escrever uma letra a mais, não tem problema nenhum! O celular não vai estragar se você apertar o botão errado. Se precisar apagar, é só tocar em cima da anotação que você fez, procurar o desenho de uma lixeira (que fica no topo da tela) e tocar nela. O compromisso sumirá na mesma hora.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pagina-googleagenda -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PÁGINA: MEU SUS DIGITAL
+  ═══════════════════════════════════════════════════ -->
+  <div id="pagina-susdigital" class="pagina">
+
+    <div class="page-header" style="padding-top: 6rem;">
+      <div class="container">
+        <h1>🏥 Meu SUS Digital</h1>
+        <p>Lembra daquele cartãozinho de papel do SUS e da sua carteirinha de vacinação? Agora, você pode ter tudo isso guardado em segurança dentro do seu celular! O aplicativo Meu SUS Digital é como se fosse uma pasta com todo o seu histórico de saúde, disponível a qualquer hora, sem precisar sair de casa.</p>
+      </div>
+    </div>
+
+    <!-- Passo 1 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">1</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como entrar no aplicativo</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Procure na tela do seu celular um aplicativo azul, com o desenho de uma cruz branca e escrito "Meu SUS Digital". Dê um toque nele.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Para entrar, o aplicativo vai pedir o seu CPF e a senha do "gov.br" — a mesma usada para aposentadoria e outros serviços do governo. Se você não souber a sua, peça ajuda a um familiar de confiança.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sus-passo1.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Ícone do Meu SUS Digital e tela de login">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 2 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">2</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Onde está o seu Cartão do SUS?</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Quando o aplicativo abrir, olhe para a parte de baixo da tela. Você vai ver um botão escrito "Cartão Nacional de Saúde". Dê um toque ali.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              O seu cartão do SUS vai aparecer grande na tela, com o seu nome e o seu número. Quando a recepcionista do posto de saúde pedir o seu cartão, é só mostrar essa tela para ela!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sus-passo2.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Cartão do SUS na tela do aplicativo">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 3 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">3</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como ver a sua Carteira de Vacinação</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Quer saber se está na hora de tomar o reforço da vacina da gripe ou da COVID-19? Na tela principal, procure por um botão onde está escrito "Vacinas".
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Ao tocar nesse botão, o celular vai mostrar uma lista com todas as vacinas que você tomou nos últimos anos. Se você tocar em cima do nome de uma vacina, ele mostra até o dia exato em que você foi ao posto!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sus-passo3.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Lista de vacinas no aplicativo">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 4 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">4</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Seus exames e remédios</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Se você rolar a tela um pouquinho para baixo, vai encontrar outras opções muito úteis: "Exames" (resultados de exames de sangue feitos pelo SUS) e "Medicamentos" (remédios que você retirou no posto ou na farmácia). É uma ótima forma de lembrar o nome daquele remédio que o médico passou!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sus-passo4.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Seção de exames e medicamentos no aplicativo">
+          </div>
+        </div>
+
+        <div class="dica-card">
+          <h4>💡 Dica de Ouro:</h4>
+          <p>Não se preocupe se esquecer a carteirinha de papel em casa! Hoje em dia, todos os postos de saúde e hospitais aceitam o cartão do SUS direto na tela do seu celular. É um documento oficial e tem a mesma validade do papel. O seu celular é o seu maior aliado!</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pagina-susdigital -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PÁGINA: WHATSAPP
+  ═══════════════════════════════════════════════════ -->
+  <div id="pagina-whatsapp" class="pagina">
+
+    <div class="page-header" style="padding-top: 6rem;">
+      <div class="container">
+        <h1>💬 WhatsApp</h1>
+        <p>A sala de estar no seu celular! Se antes a gente precisava ligar do telefone fixo ou esperar uma visita para conversar, hoje o WhatsApp permite que você converse com filhos, netos e amigos a qualquer hora, de graça! Vamos aprender juntos?</p>
+      </div>
+    </div>
+
+    <!-- Passo 1 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">1</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como mandar uma mensagem de voz (Áudio)</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Cansou a vista e não quer digitar? É só falar! Quando estiver na conversa com alguém, olhe para o canto de baixo da tela, do lado direito. Você vai ver um botão verde com o desenho de um microfone.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Coloque o dedo em cima do microfone, segure apertado e comece a falar. Quando terminar, é só tirar o dedo da tela — a mensagem vai sozinha!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/whats-passo1.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Botão de microfone no WhatsApp">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 2 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">2</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como fazer uma chamada de vídeo</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Você pode conversar vendo o rosto da pessoa, como se estivessem na mesma sala! Abra a conversa de quem você quer ligar. Lá no topo da tela, procure pelo desenho de uma câmera de vídeo. Dê um toque nela e aguarde a pessoa atender.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/whats-passo2.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Ícone de câmera para videochamada no WhatsApp">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 3 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">3</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como enviar uma foto</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Viu uma flor bonita no jardim? Na mesma linha onde você digita a mensagem, procure pelo desenho de um clipe de papel ou de uma câmera fotográfica. Se tocar na câmera, você tira a foto na mesma hora. Se tocar no clipe, escolhe uma foto já guardada no celular.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/whats-passo3.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Ícones de clipe e câmera no WhatsApp">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 4 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">4</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Mandei sem querer! Como apagar?</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Todo mundo manda mensagem para a pessoa errada de vez em quando. Coloque o dedo em cima da mensagem que você mandou e segure por um tempinho até ela ficar marcada. Lá em cima vai aparecer o desenho de uma lixeira — toque nela e escolha "Apagar para todos".
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/whats-passo4.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Apagar mensagem no WhatsApp">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 5 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">5</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como aumentar o tamanho das letras</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Está achando as letras muito miúdas? Na tela inicial do WhatsApp, toque nos três pontinhos lá em cima e vá em "Configurações" → "Conversas" → "Tamanho da fonte". Escolha a opção "Grande". Pronto, a leitura vai ficar muito mais confortável!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/whats-passo5.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Configuração de tamanho de fonte no WhatsApp">
+          </div>
+        </div>
+
+        <div class="dica-card" style="border-left: 4px solid #e67e22;">
+          <h4>⚠️ Lembrete de segurança:</h4>
+          <p>O WhatsApp é maravilhoso, mas lembre-se: bancos e órgãos do governo nunca pedem senhas ou dinheiro por mensagem. Se alguém pedir dinheiro emprestado pelo WhatsApp, ligue para a pessoa pelo número normal para confirmar antes de fazer qualquer coisa!</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pagina-whatsapp -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PÁGINA: DICAS DE SEGURANÇA
+  ═══════════════════════════════════════════════════ -->
+  <div id="pagina-seguranca" class="pagina">
+
+    <div class="page-header" style="padding-top: 6rem;">
+      <div class="container">
+        <h1>🔒 Dicas de Segurança</h1>
+        <p>O celular é uma ferramenta maravilhosa, mas assim como no mundo real, é preciso tomar alguns cuidados para não cair em armadilhas. Com algumas dicas simples, você vai se sentir muito mais seguro e tranquilo ao usar o seu aparelho!</p>
+      </div>
+    </div>
+
+    <!-- Dica 1 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">1</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Cuidado com mensagens de estranhos</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Se você receber uma mensagem de um número desconhecido dizendo que ganhou um prêmio, que há um problema com seu banco ou que um familiar está em apuros, <strong>não responda e não clique em nenhum link</strong>.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Golpistas usam essas histórias para assustar as pessoas. A melhor coisa a fazer é ligar diretamente para o banco ou para o familiar pelo número que você já conhece.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/seguranca-passo1.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Mensagem suspeita no celular">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica 2 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">2</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Nunca compartilhe sua senha com ninguém</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              A senha do seu celular, do seu banco e do gov.br é como a chave da sua casa: é só sua! <strong>Nenhum banco, nenhum funcionário do governo e nenhum técnico de celular precisa saber a sua senha</strong> para te ajudar.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/seguranca-passo2.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Cadeado protegendo senha">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica 3 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">3</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Desconfie de links enviados por mensagem</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Às vezes chega uma mensagem com um link dizendo "clique aqui para ver sua fatura" ou "acesse aqui para receber seu benefício". <strong>Tenha muito cuidado!</strong> Antes de clicar em qualquer link, pergunte a um filho, neto ou pessoa de confiança se aquilo parece verdadeiro.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/seguranca-passo3.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Link suspeito em mensagem">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica 4 -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <div class="passo-num">4</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Mantenha o celular com senha ou digital</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Coloque uma senha ou o desbloqueio pela digital do dedo na tela inicial do seu celular. Assim, se você esquecer o aparelho em algum lugar, ninguém consegue acessar os seus dados. Vá em <strong>Configurações → Segurança → Tela de bloqueio</strong>.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/seguranca-passo4.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Tela de bloqueio com digital">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica 5 -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="passo-num">5</div>
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Em caso de dúvida, pergunte antes de agir</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Recebeu algo estranho? Não sabe se pode clicar? <strong>Pare tudo e pergunte a alguém de confiança</strong> antes de fazer qualquer coisa. Não existe vergonha em pedir ajuda! Golpistas contam com a pressa e o medo das pessoas.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/seguranca-passo5.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Pessoa pedindo ajuda a familiar">
+          </div>
+        </div>
+
+        <div class="dica-card" style="border-left: 4px solid #c0392b;">
+          <h4>🚨 Lembre-se sempre:</h4>
+          <p>Bancos, o governo e operadoras de telefone <strong>nunca</strong> ligam pedindo sua senha, código de segurança ou para você instalar um aplicativo. Se alguém fizer isso, desligue imediatamente e ligue para o número oficial da instituição que você já conhece.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pagina-seguranca -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PÁGINA: SOBRE
+  ═══════════════════════════════════════════════════ -->
+  <div id="pagina-sobre" class="pagina">
+
+    <div class="page-header" style="padding-top: 6rem;">
+      <div class="container">
+        <h1>Sobre o Projeto</h1>
+        <p>Este site nasceu de um desejo simples: fazer com que a tecnologia seja acessível para todos, independentemente da idade. Acreditamos que aprender a usar o celular não precisa ser complicado nem assustador.</p>
+      </div>
+    </div>
+
+    <!-- O que é -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">O que é este site?</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Este é um espaço criado especialmente para quem está dando os primeiros passos no mundo digital. Aqui você encontra guias simples, escritos com linguagem clara e direta, para aprender a usar os aplicativos mais úteis do dia a dia.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Cada guia foi pensado com carinho, com explicações passo a passo e imagens que mostram exatamente onde tocar na tela. Sem termos difíceis, sem pressa.
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sobre-projeto.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Ilustração do projeto">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Para quem é -->
+    <div class="section-pagina-alt">
+      <div class="container">
+        <div class="row align-items-center g-5 flex-md-row-reverse">
+          <div class="col-md-6">
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">Para quem é este site?</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Este site é para você que talvez nunca tenha usado um celular moderno antes, ou que usa há algum tempo mas ainda tem dúvidas sobre certas funções. É para avós, pais, tios e vizinhos que querem se sentir mais seguros e conectados com a família.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Também é um ótimo recurso para filhos e netos que querem ensinar seus familiares de forma paciente e organizada!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sobre-publico.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Família usando celular juntos">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O que você vai encontrar -->
+    <div class="section-pagina">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <h2 class="fw-bold mb-3" style="color: #2e2a36;">O que você vai encontrar aqui?</h2>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Atualmente, o site conta com guias completos para três aplicativos essenciais: o <strong>Google Agenda</strong>, para nunca mais esquecer um compromisso; o <strong>Meu SUS Digital</strong>, para ter seu cartão de saúde sempre à mão; e o <strong>WhatsApp</strong>, para se manter próximo de quem você ama.
+            </p>
+            <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
+              Além disso, há uma página com <strong>Dicas de Segurança</strong>, ensinando como se proteger de golpes e manter seus dados seguros. Novos conteúdos serão adicionados com o tempo!
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <img src="./imgs/sobre-conteudo.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Conteúdos do site">
+          </div>
+        </div>
+
+        <div class="dica-card" style="border-left: 4px solid #27ae60;">
+          <h4>💚 Nossa mensagem para você:</h4>
+          <p>Nunca é tarde para aprender! Cada pequeno passo que você der no mundo digital é uma conquista. Se tiver dúvidas, volte aqui quantas vezes precisar. Estamos aqui para ajudar.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pagina-sobre -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════════════ -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
+  <script>
+    const mapaNavLinks = {
+      home:         ['nav-home'],
+      googleagenda: ['nav-apps', 'nav-agenda'],
+      susdigital:   ['nav-apps', 'nav-sus'],
+      whatsapp:     ['nav-apps', 'nav-whats'],
+      seguranca:    ['nav-seguranca'],
+      sobre:        ['nav-sobre'],
+    };
+
+    function mostrarPagina(pagina) {
+      // Oculta todas as páginas
+      document.querySelectorAll('.pagina').forEach(el => el.classList.remove('ativa'));
+
+      // Exibe a página solicitada
+      const alvo = document.getElementById('pagina-' + pagina);
+      if (alvo) alvo.classList.add('ativa');
+
+      // Remove "active" de todos os links da navbar
+      document.querySelectorAll('.navbar .nav-link, .navbar .dropdown-item')
+        .forEach(el => el.classList.remove('active'));
+
+      // Adiciona "active" nos links correspondentes
+      (mapaNavLinks[pagina] || []).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('active');
+      });
+
+      // Rola para o topo
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Inicializa na home
+    mostrarPagina('home');
+  </script>
+
+</body>
 </html>
