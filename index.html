@@ -83,6 +83,9 @@
   <nav class="navbar navbar-expand-lg py-4 navbar-dark fixed-top"
     style="border-bottom: 0.5px solid rgba(255,255,255,0.3); background-color: #27242f;">
     <div class="container">
+      <button id="btn-voltar" class="btn btn-outline-light me-3 d-none" onclick="voltarPagina()">
+        ← Voltar
+      </button>
       <a class="navbar-brand text-white fw-bold" href="#" onclick="mostrarPagina('home')">Aprenda com o Celular</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
@@ -93,7 +96,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
           <li class="nav-item">
-            <a class="nav-link text-white" id="nav-home" href="#" onclick="mostrarPagina('home')">Home</a>
+            <a class="nav-link text-white" id="nav-home" href="#" onclick="mostrarPagina('home')">Início</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -621,7 +624,7 @@
               Procure na tela do seu celular um aplicativo azul, com o desenho de uma cruz branca e escrito "Meu SUS Digital". Dê um toque nele.
             </p>
             <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
-              Para entrar, o aplicativo vai pedir o seu CPF e a senha do "gov.br" — a mesma usada para aposentadoria e outros serviços do governo. Se você não souber a sua, peça ajuda a um familiar de confiança.
+              Ao abrir o aplicativo, você verá um botão azul escrito <strong>"Entrar com o Gov.br"</strong>. Dê um toque nele. Só então o aplicativo vai pedir o seu CPF e a senha cadastrada — a mesma usada para aposentadoria e outros serviços do governo. Se você não souber a sua, peça ajuda a um familiar de confiança.
             </p>
           </div>
           <div class="col-md-6 text-center">
@@ -639,7 +642,7 @@
             <div class="passo-num">2</div>
             <h2 class="fw-bold mb-3" style="color: #2e2a36;">Onde está o seu Cartão do SUS?</h2>
             <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
-              Quando o aplicativo abrir, olhe para a parte de baixo da tela. Você vai ver um botão escrito "Cartão Nacional de Saúde". Dê um toque ali.
+              Quando o aplicativo abrir, olhe para a parte de baixo da tela e toque em <strong>"Perfil"</strong> (o ícone com o desenho de uma pessoa). Depois, dê um toque na opção escrita <strong>"Cartão Nacional de Saúde"</strong>.
             </p>
             <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
               O seu cartão do SUS vai aparecer grande na tela, com o seu nome e o seu número. Quando a recepcionista do posto de saúde pedir o seu cartão, é só mostrar essa tela para ela!
@@ -1011,6 +1014,42 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    // ═══════════════════════════════════════════════════
+    // MODELAGEM ORIENTADA A OBJETOS: ESTRUTURA DE DADOS (PILHA)
+    // ═══════════════════════════════════════════════════
+    class PilhaHistorico {
+      constructor() {
+        this.itens = [];
+      }
+
+      empilhar(pagina) {
+        this.itens.push(pagina);
+      }
+
+      desempilhar() {
+        if (this.estaVazia()) {
+          return null;
+        }
+        return this.itens.pop();
+      }
+
+      estaVazia() {
+        return this.itens.length === 0;
+      }
+
+      topo() {
+        return this.itens[this.itens.length - 1];
+      }
+
+      tamanho() {
+        return this.itens.length;
+      }
+    }
+
+    // Instanciação da estrutura de dados
+    const historico = new PilhaHistorico();
+    let paginaAtual = 'home';
+
     const mapaNavLinks = {
       home:         ['nav-home'],
       googleagenda: ['nav-apps', 'nav-agenda'],
@@ -1020,13 +1059,23 @@
       sobre:        ['nav-sobre'],
     };
 
-    function mostrarPagina(pagina) {
+    function mostrarPagina(pagina, registrarHistorico = true) {
+      if (pagina === paginaAtual) return;
+
+      // Empilha a página atual se a navegação for direta
+      if (registrarHistorico) {
+        historico.empilhar(paginaAtual);
+      }
+
       // Oculta todas as páginas
       document.querySelectorAll('.pagina').forEach(el => el.classList.remove('ativa'));
 
       // Exibe a página solicitada
       const alvo = document.getElementById('pagina-' + pagina);
       if (alvo) alvo.classList.add('ativa');
+
+      // Atualiza a página ativa
+      paginaAtual = pagina;
 
       // Remove "active" de todos os links da navbar
       document.querySelectorAll('.navbar .nav-link, .navbar .dropdown-item')
@@ -1038,12 +1087,36 @@
         if (el) el.classList.add('active');
       });
 
+      // Gerencia a visibilidade do botão "Voltar"
+      const btnVoltar = document.getElementById('btn-voltar');
+      if (btnVoltar) {
+        if (historico.estaVazia()) {
+          btnVoltar.classList.add('d-none');
+        } else {
+          btnVoltar.classList.remove('d-none');
+        }
+      }
+
       // Rola para o topo
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Inicializa na home
-    mostrarPagina('home');
+    function voltarPagina() {
+      const paginaAnterior = historico.desempilhar();
+      if (paginaAnterior) {
+        mostrarPagina(paginaAnterior, false); // false para não reinserir o retorno no histórico
+      }
+    }
+
+    // Inicializa na home (sem registrar histórico inicial)
+    // Inicialização direta do estado visual
+    const inicializarHome = () => {
+      const alvo = document.getElementById('pagina-home');
+      if (alvo) alvo.classList.add('ativa');
+      const elHome = document.getElementById('nav-home');
+      if (elHome) elHome.classList.add('active');
+    };
+    inicializarHome();
   </script>
 
 </body>
