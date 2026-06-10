@@ -1,13 +1,10 @@
 const mapaNavLinks = {
   home:         ['nav-home'],
-  govbr:        ['nav-govbr'],
   susdigital:   ['nav-sus'],
   whatsapp:     ['nav-whats'],
-  bancos:       ['nav-bancos'],
   seguranca:    ['nav-seguranca'],
-  ajuda:        ['nav-ajuda'],
-  googleagenda: [],
-  sobre:        [],
+  sobre:        ['nav-sobre'],
+  googleagenda: ['nav-agenda'],
 };
 
 // Cache para não buscar a mesma página duas vezes
