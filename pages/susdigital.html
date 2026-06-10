@@ -1,7 +1,93 @@
-<div class="page-header" style="padding-top: 6rem;">
+<style>
+  .sus-hero {
+    background: linear-gradient(135deg, #083064 0%, #145aa0 100%);
+    padding: 10rem 0 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+.sus-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: 80px;
+  width: 0; height: 0;
+  border-left: 180px solid transparent;
+  border-right: 180px solid transparent;
+  border-bottom: 300px solid rgba(255,255,255,0.04);
+}
+.sus-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 10%;
+  width: 0; height: 0;
+  border-left: 120px solid transparent;
+  border-right: 120px solid transparent;
+  border-bottom: 200px solid rgba(255,255,255,0.04);
+}
+.sus-hero-circulo1 {
+  position: absolute;
+  top: 20%; left: -40px;
+  width: 0; height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 140px solid rgba(255,255,255,0.03);
+}
+.sus-hero-circulo2 {
+  position: absolute;
+  bottom: 10px; right: 25%;
+  width: 0; height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 180px solid rgba(255,255,255,0.05);
+}
+  .sus-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1rem;
+  }
+  .sus-hero h1 { color: #fff; font-weight: 600; margin-bottom: 0.75rem; }
+  .sus-hero p  { color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; }
+
+  .passo-num-sus {
+    display: inline-block;
+    background-color: #1976d2;
+    color: #fff;
+    border-radius: 50%;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dica-card-sus {
+    background: linear-gradient(160deg, #ffffff 60%, #e8f4fd 100%);
+    border: 0.5px solid #c5dff7;
+    border-left: 4px solid #1976d2;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 3rem 0 4rem;
+  }
+  .dica-card-sus h4 { font-size: 1.2rem; font-weight: 600; color: #2e2a36; }
+  .dica-card-sus p  { font-size: 1rem; color: #444; margin: 0; }
+</style>
+
+<!-- Hero -->
+<div class="sus-hero">
+  <div class="sus-hero-circulo1"></div>
+  <div class="sus-hero-circulo2"></div>
   <div class="container">
-    <h1>🏥 Meu SUS Digital</h1>
-    <p>Lembra daquele cartãozinho de papel do SUS e da sua carteirinha de vacinação? Agora, você pode ter tudo isso guardado em segurança dentro do seu celular! O aplicativo Meu SUS Digital é como se fosse uma pasta com todo o seu histórico de saúde, disponível a qualquer hora, sem precisar sair de casa.</p>
+    <div class="sus-hero-badge">🏥 Guia de aplicativo</div>
+    <h1 style="font-size: 2rem;">Meu SUS Digital</h1>
+    <p>Tenha seu cartão do SUS, vacinas e exames sempre à mão, direto no celular. Sem precisar sair de casa.</p>
   </div>
 </div>
 
@@ -10,7 +96,7 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">1</div>
+        <div class="passo-num-sus">1</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como entrar no aplicativo</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Procure na tela do seu celular um aplicativo azul, com o desenho de uma cruz branca e escrito "Meu SUS Digital". Dê um toque nele.
@@ -31,7 +117,7 @@
   <div class="container">
     <div class="row align-items-center g-5 flex-md-row-reverse">
       <div class="col-md-6">
-        <div class="passo-num">2</div>
+        <div class="passo-num-sus">2</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Onde está o seu Cartão do SUS?</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Quando o aplicativo abrir, olhe para a parte de baixo da tela. Você vai ver um botão escrito "Cartão Nacional de Saúde". Dê um toque ali.
@@ -52,7 +138,7 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">3</div>
+        <div class="passo-num-sus">3</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como ver a sua Carteira de Vacinação</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Quer saber se está na hora de tomar o reforço da vacina da gripe ou da COVID-19? Na tela principal, procure por um botão onde está escrito "Vacinas".
@@ -73,7 +159,7 @@
   <div class="container">
     <div class="row align-items-center g-5 flex-md-row-reverse">
       <div class="col-md-6">
-        <div class="passo-num">4</div>
+        <div class="passo-num-sus">4</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Seus exames e remédios</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Se você rolar a tela um pouquinho para baixo, vai encontrar outras opções muito úteis: "Exames" (resultados de exames de sangue feitos pelo SUS) e "Medicamentos" (remédios que você retirou no posto ou na farmácia). É uma ótima forma de lembrar o nome daquele remédio que o médico passou!
@@ -84,7 +170,7 @@
       </div>
     </div>
 
-    <div class="dica-card">
+    <div class="dica-card-sus">
       <h4>💡 Dica de Ouro:</h4>
       <p>Não se preocupe se esquecer a carteirinha de papel em casa! Hoje em dia, todos os postos de saúde e hospitais aceitam o cartão do SUS direto na tela do seu celular. É um documento oficial e tem a mesma validade do papel. O seu celular é o seu maior aliado!</p>
     </div>
