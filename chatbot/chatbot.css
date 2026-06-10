@@ -192,7 +192,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  border-top: 0.5px solid rgba(255,255,255,0.08);
+  border-top: 0.5px solid rgba(255,255,255,0. 08);
   background: #27242f;
   flex-shrink: 0;
 }
