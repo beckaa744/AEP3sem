@@ -1,104 +1,35 @@
+/* ============================================================
+   BASE
+   Comportamento global da página e fonte padrão
+   ============================================================ */
 html, body {
   overflow-y: auto !important;
   height: auto !important;
   font-family: 'Inter', sans-serif;
 }
 
+/* Placeholder dos inputs com visual discreto */
 ::placeholder {
   color: #fff !important;
   opacity: 0.5;
 }
 
-/* SPA: oculta/exibe páginas */
+
+/* ============================================================
+   SPA — CONTROLE DE PÁGINAS
+   O router.js adiciona/remove a classe .ativa para controlar
+   qual página está visível dentro do #app
+   ============================================================ */
 #app > div { display: none; }
 #app > div.ativa { display: block; }
 
-/* Imagens da hero clicáveis */
-.hero-img-wrap {
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.hero-img-wrap:hover { opacity: 0.85; }
 
-/* Páginas internas — seções alternadas */
-.section-pagina {
-  padding: 2rem 0;
-}
-.section-pagina-alt {
-  padding: 2rem 0;
-  background-color: #f5faf9;
-}
-
-/* Cabeçalho das páginas internas */
-.page-header {
-  background: linear-gradient(135deg, #2e2a36 60%, #3d3a47);
-  padding: 4rem 0 3rem;
-  color: #fff;
-  padding-top: 8rem;
-}
-.page-header h1 { font-size: 2.2rem; font-weight: 700; }
-.page-header p  { font-size: 1.15rem; opacity: 0.8; max-width: 700px; }
-
-/* Card de dica/alerta */
-.dica-card {
-  background: linear-gradient(160deg, #ffffff 60%, #e4f7f3 100%);
-  border: 0.5px solid #d0e8e4;
-  border-radius: 1rem;
-  padding: 2rem;
-  margin: 3rem 0 4rem;
-}
-.dica-card h4 { font-size: 1.2rem; font-weight: 600; color: #2e2a36; }
-.dica-card p  { font-size: 1rem; color: #444; margin: 0; }
-
-/* Passo: número decorativo */
-.passo-num {
-  display: inline-block;
-  background-color: #2e2a36;
-  color: #fff;
-  border-radius: 50%;
-  width: 2.2rem;
-  height: 2.2rem;
-  line-height: 2.2rem;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-}
-/* Botões da barra principal */
-.btn-nav-top {
-  background: transparent;
-  color: #fff;
-  border: none;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background 0.2s;
-  white-space: nowrap;
-}
-.btn-nav-top:hover,
-.btn-nav-top.active {
-  background: rgba(178, 151, 229, 0.2);
-  color: #b297e5;
-}
-
-/* Botões da barra de aplicativos */
-.btn-nav-app {
-  background: #2e2a36;
-  color: #fff;
-  border: 1px solid #444;
-  padding: 0.25rem 1rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: background 0.2s, border-color 0.2s;
-  white-space: nowrap;
-}
-.btn-nav-app:hover,
-.btn-nav-app.active {
-  background: #b297e5;
-  border-color: #b297e5;
-}
+/* ============================================================
+   NAVBAR
+   Classes dos links e separadores da barra de navegação.
+   Os estilos de fundo e layout da navbar ficam inline no
+   index.html por serem específicos daquele elemento único.
+   ============================================================ */
 .nb-link {
   color: rgba(255,255,255,0.5);
   font-size: 13.5px;
@@ -115,9 +46,204 @@ html, body {
   border-bottom: 2px solid #b297e5;
 }
 
+/* Separador vertical entre os links da navbar */
 .nb-div {
   width: 0.5px;
   height: 12px;
   background: rgba(255,255,255,0.15);
   flex-shrink: 0;
 }
+
+
+/* ============================================================
+   PÁGINAS INTERNAS — LAYOUT BASE
+   Seções alternadas usadas em todas as páginas de guia
+   (SUS Digital, WhatsApp, Google Agenda, Segurança)
+   ============================================================ */
+.section-pagina {
+  padding: 2rem 0;
+}
+.section-pagina-alt {
+  padding: 2rem 0;
+  background-color: #f5faf9;
+}
+
+/* Cabeçalho escuro usado nas páginas Segurança e Sobre */
+.page-header {
+  background: linear-gradient(135deg, #2e2a36 60%, #3d3a47);
+  padding-top: 8rem;
+  padding-bottom: 3rem;
+  color: #fff;
+}
+.page-header h1 { font-size: 2.2rem; font-weight: 700; }
+.page-header p  { font-size: 1.15rem; opacity: 0.8; max-width: 700px; }
+
+
+/* ============================================================
+   HERO GENÉRICO
+   Usado nas páginas de guia de aplicativo (SUS, WhatsApp,
+   Google Agenda). As cores vêm das variáveis CSS de cada
+   página, definidas na seção "Cores por página" abaixo.
+   ============================================================ */
+.page-hero {
+  background: linear-gradient(135deg, var(--hero-cor1, #2e2a36) 0%, var(--hero-cor2, #3d3a47) 100%);
+  padding: 10rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Triângulos decorativos gerados por CSS */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: 80px;
+  width: 0; height: 0;
+  border-left: 180px solid transparent;
+  border-right: 180px solid transparent;
+  border-bottom: 300px solid rgba(255,255,255,0.04);
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 10%;
+  width: 0; height: 0;
+  border-left: 120px solid transparent;
+  border-right: 120px solid transparent;
+  border-bottom: 200px solid rgba(255,255,255,0.04);
+}
+
+/* Badge de categoria ex: "🏥 Guia de aplicativo" */
+.page-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 0.5px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1rem;
+}
+
+.page-hero h1 { color: #fff; font-weight: 600; margin-bottom: 0.75rem; font-size: 2rem; }
+.page-hero p  { color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; }
+
+
+/* ============================================================
+   COMPONENTES REUTILIZÁVEIS
+   Usados em todas as páginas de guia
+   ============================================================ */
+
+/* Número do passo (círculo colorido) */
+.passo-num {
+  display: inline-block;
+  background-color: var(--pagina-cor, #2e2a36);
+  color: #fff;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Card de dica/alerta no final de cada guia */
+.dica-card {
+  background: linear-gradient(160deg, #ffffff 60%, var(--dica-bg, #e4f7f3) 100%);
+  border: 0.5px solid;
+  border-color: var(--dica-borda, #d0e8e4);
+  border-left: 4px solid var(--pagina-cor, #2e2a36);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 3rem 0 4rem;
+}
+.dica-card h4 { font-size: 1.2rem; font-weight: 600; color: #2e2a36; }
+.dica-card p  { font-size: 1rem; color: #444; margin: 0; }
+
+/* Imagens clicáveis na hero da home */
+.hero-img-wrap {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.hero-img-wrap:hover { opacity: 0.85; }
+
+
+/* ============================================================
+   CORES POR PÁGINA — VARIÁVEIS CSS
+   Cada #pagina-X define suas próprias cores.
+   As classes .page-hero, .passo-num e .dica-card
+   leem essas variáveis automaticamente.
+   ============================================================ */
+#pagina-susdigital {
+  --hero-cor1:  #083064;
+  --hero-cor2:  #145aa0;
+  --pagina-cor: #1976d2;
+  --dica-bg:    #e8f4fd;
+  --dica-borda: #c5dff7;
+}
+#pagina-whatsapp {
+  --hero-cor1:  #065047;
+  --hero-cor2:  #19c5b1;
+  --pagina-cor: #25D366;
+  --dica-bg:    #e4f7f3;
+  --dica-borda: #d0e8e4;
+}
+#pagina-googleagenda {
+  --hero-cor1:  #7d3c1a;
+  --hero-cor2:  #c0622a;
+  --pagina-cor: #e53935;
+  --dica-bg:    #fdecea;
+  --dica-borda: #f5c6c6;
+}
+#pagina-seguranca {
+  --hero-cor1:  #7b241c;
+  --hero-cor2:  #c0392b;
+  --pagina-cor: #c0392b;
+  --dica-bg:    #fdecea;
+  --dica-borda: #f5c6c6;
+}
+
+
+/* ============================================================
+   CLASSES DE BOTÃO SEM USO ATIVO
+   Definidas mas não aplicadas em nenhuma página no momento.
+   Podem ser removidas se não forem mais necessárias.
+   ============================================================ */
+.btn-nav-top {
+  background: transparent;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-nav-top:hover,
+.btn-nav-top.active {
+  background: rgba(178,151,229,0.2);
+  color: #b297e5;
+}
+
+.btn-nav-app {
+  background: #2e2a36;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.25rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.btn-nav-app:hover,
+.btn-nav-app.active {
+  background: #b297e5;
+  border-color: #b297e5;
+}
+
+
