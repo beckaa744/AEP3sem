@@ -50,5 +50,54 @@ document.querySelectorAll('.nb-link')
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+async function enviarFormulario() {
+  const botao     = document.getElementById('btn-enviar');
+  const retorno   = document.getElementById('form-retorno');
+
+  const dados = {
+    nome:      document.getElementById('form-nome').value,
+    sobrenome: document.getElementById('form-sobrenome').value,
+    email:     document.getElementById('form-email').value,
+    telefone:  document.getElementById('form-telefone').value,
+    regiao:    document.getElementById('form-regiao').value,
+    mensagem:  document.getElementById('form-mensagem').value,
+  };
+
+  // Validação básica
+  if (!dados.nome || !dados.email || !dados.mensagem) {
+    retorno.textContent = '⚠️ Preencha pelo menos nome, e-mail e mensagem.';
+    retorno.style.color = '#f0a500';
+    return;
+  }
+
+  botao.disabled = true;
+  botao.textContent = 'Enviando...';
+
+  try {
+    const res = await fetch('http://localhost:3000/contato', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+
+    if (res.ok) {
+      retorno.textContent = '✅ Mensagem enviada! Retornaremos em breve.';
+      retorno.style.color = '#25D366';
+      // Limpa os campos
+      ['form-nome','form-sobrenome','form-email','form-telefone','form-mensagem'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('form-regiao').selectedIndex = 0;
+    } else {
+      throw new Error();
+    }
+  } catch {
+    retorno.textContent = '❌ Algo deu errado. Tente novamente.';
+    retorno.style.color = '#e53935';
+  } finally {
+    botao.disabled = false;
+    botao.textContent = 'Enviar ›';
+  }
+}
 // Carrega a home na inicialização
 mostrarPagina('home');

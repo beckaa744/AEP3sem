@@ -292,31 +292,31 @@
                 <div class="row g-3">
                   <div class="col-6">
                     <label style="font-size: 12px; color: #b297e5;">Primeiro nome *</label>
-                    <input type="text" class="form-control mt-1" placeholder="Digite seu nome"
+                    <input id="form-nome" type="text" class="form-control mt-1" placeholder="Digite seu nome"
                            style="background: #3d3a47; border: 1px solid #555; color: #fff;
                                   border-radius: 8px; font-size: 14px;">
                   </div>
                   <div class="col-6">
                     <label style="font-size: 12px; color: #b297e5;">Sobrenome *</label>
-                    <input type="text" class="form-control mt-1" placeholder="Digite seu sobrenome"
+                    <input id="form-sobrenome" type="text" class="form-control mt-1" placeholder="Digite seu sobrenome"
                            style="background: #3d3a47; border: 1px solid #555; color: #fff;
                                   border-radius: 8px; font-size: 14px;">
                   </div>
                   <div class="col-6">
                     <label style="font-size: 12px; color: #b297e5;">E-mail *</label>
-                    <input type="email" class="form-control mt-1" placeholder="Insira seu e-mail"
+                    <input id="form-email" type="email" class="form-control mt-1" placeholder="Insira seu e-mail"
                            style="background: #3d3a47; border: 1px solid #555; color: #fff;
                                   border-radius: 8px; font-size: 14px;">
                   </div>
                   <div class="col-6">
                     <label style="font-size: 12px; color: #b297e5;">Número de telefone *</label>
-                    <input type="tel" class="form-control mt-1" placeholder="Digite seu número"
+                    <input id="form-telefone" type="tel" class="form-control mt-1" placeholder="Digite seu número"
                            style="background: #3d3a47; border: 1px solid #555; color: #fff;
                                   border-radius: 8px; font-size: 14px;">
                   </div>
                   <div class="col-12">
                     <label style="font-size: 12px; color: #b297e5;">Região</label>
-                    <select class="form-select mt-1"
+                    <select id="form-regiao" class="form-select mt-1"
                             style="background: #3d3a47; border: 1px solid #555; color: #aaa;
                                    border-radius: 8px; font-size: 14px;">
                       <option>Por favor, selecione</option>
@@ -327,7 +327,7 @@
                   </div>
                   <div class="col-12">
                     <label style="font-size: 12px; color: #b297e5;">Mensagem *</label>
-                    <textarea class="form-control mt-1" rows="4" placeholder="Digite sua mensagem*"
+                    <textarea id="form-mensagem" class="form-control mt-1" rows="4" placeholder="Digite sua mensagem*"
                               style="background: #3d3a47; border: 1px solid #555; color: #fff;
                                      border-radius: 8px; font-size: 14px; resize: none;"></textarea>
                   </div>
@@ -336,8 +336,15 @@
                       Precisamos das suas informações de contato para entrar em contato e te auxiliar.
                     </p>
                   </div>
+
+                  <!-- Mensagem de retorno (sucesso ou erro) -->
                   <div class="col-12">
-                    <button class="btn d-flex align-items-center gap-2 fw-medium"
+                    <p id="form-retorno" style="font-size: 13px; margin: 0;"></p>
+                  </div>
+
+                  <div class="col-12">
+                    <button id="btn-enviar" onclick="enviarFormulario()"
+                            class="btn d-flex align-items-center gap-2 fw-medium"
                             style="background: #b297e5; color: #fff; border-radius: 8px;
                                    padding: 10px 24px; font-size: 14px;">
                       Enviar &rsaquo;
