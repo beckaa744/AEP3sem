@@ -1,4 +1,4 @@
-<section style="position: relative; overflow: hidden; background: linear-gradient(135deg, #2e2a36 0%, #3d3a47 50%, #2a2640 100%); min-height: 100vh; display: flex; align-items: center; padding-top: 180px; padding-bottom: 60px;">
+<section class="hero-section">
 
   <!-- Formas decorativas de fundo -->
   <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.25;" xmlns="http://www.w3.org/2000/svg">
@@ -24,15 +24,15 @@
                 radial-gradient(ellipse at 10% 80%, rgba(126, 200, 200, 0.1) 0%, transparent 50%);">
   </div>
 
-  <div class="container" style="position: relative; z-index: 2;">
-    <div class="row align-items-center g-5">
+  <div class="container text-container" style="position: relative; z-index: 2; width: 100%;">
+    <div class="row">
       
       <!-- Texto -->
-      <div class="col-12 col-lg-7 text-start">
+      <div class="col-12 col-lg-5 text-start">
         <h1 class="fw-bold mb-3 text-white hero-title" style="font-size: 3rem; line-height: 1.2;">
           Conecte-se ao mundo digital com confiança, no seu tempo e sem complicação
         </h1>
-        <p class="opacity-75 mb-4 text-white" style="font-size: 1.15rem; max-width: 600px;">
+        <p class="opacity-75 mb-4 text-white" style="font-size: 1.15rem;">
           Uma plataforma de aprendizado com guias simples e passo a passo, desenvolvida para ajudar você a utilizar o celular e aplicativos do dia a dia com segurança e confiança.
         </p>
         <div class="d-flex gap-3 flex-wrap">
@@ -46,21 +46,21 @@
         </div>
       </div>
 
-      <!-- Imagens -->
-      <div class="col-12 col-lg-5 text-center">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px; gap: 12px; max-width: 450px; margin: 0 auto;">
-          <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
-            <img src="./assets/imgs/1.png" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
-            <img src="./assets/imgs/2.png" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div style="grid-column: span 2; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
-            <img src="./assets/imgs/3.png" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
 
+  <!-- Imagens -->
+  <div class="hero-images-wrapper">
+    <div class="hero-images-grid" style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px; gap: 12px; max-width: 450px; margin: 0 auto; padding-left: 12px; padding-right: 12px;">
+      <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
+        <img src="./assets/imgs/1.png" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div style="border-radius: 16px 0 0 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
+        <img src="./assets/imgs/2.png" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div style="grid-column: span 2; border-radius: 16px 0 0 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
+        <img src="./assets/imgs/3.png" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
     </div>
   </div>
 </section>

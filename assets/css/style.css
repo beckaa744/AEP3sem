@@ -415,3 +415,53 @@ html, body {
     padding-left: 105px; /* Abre espaço para o botão "Voltar" absoluto */
   }
 }
+
+/* ============================================================
+   RESPONSIVIDADE DA HOME HERO
+   ============================================================ */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2e2a36 0%, #3d3a47 50%, #2a2640 100%);
+  min-height: 880px; /* Reduzido em 20px */
+  display: flex;
+  align-items: center;
+  padding-top: 200px; /* Reduzido em 20px */
+  padding-bottom: 60px; /* Reduzido em 20px */
+}
+
+@media (max-width: 991px) {
+  .hero-section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 180px;
+    padding-bottom: 160px !important;
+    min-height: 100vh; /* Mantém tela cheia no mobile */
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-images-wrapper {
+    position: absolute !important;
+    top: calc(50% + 30px) !important; /* Ajustado em 20px */
+    transform: translateY(-50%) !important;
+    right: 0 !important;
+    width: 40% !important;
+    padding-left: 24px !important;
+    z-index: 1;
+  }
+  .hero-images-grid {
+    grid-template-rows: 300px 300px !important; /* Tamanho original no desktop */
+    max-width: 100% !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .hero-images-wrapper {
+    width: 100% !important;
+    margin-top: 6rem !important;
+    z-index: 2;
+  }
+}
