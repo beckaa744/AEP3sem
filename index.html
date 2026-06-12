@@ -36,26 +36,22 @@
 
         <div class="d-flex align-items-center gap-3">
 
-          <div style="display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.07);
-                      border: 0.5px solid rgba(255,255,255,0.12); border-radius: 20px;
-                      padding: 0.3rem 0.85rem; width: 320px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none"
-              stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" id="busca-input" placeholder="Buscar..."
-              style="background: transparent; border: none; outline: none; color: #fff;
-                     font-size: 13px; width: 100%;">
+          <div style="position: relative; width: 480px;">
+            <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07);
+                        border: 0.5px solid rgba(255,255,255,0.12); border-radius: 24px;
+                        padding: 0.45rem 1.1rem; width: 100%;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="busca-input" placeholder="Buscar..."
+                oninput="executarBusca(this.value)"
+                style="background: transparent; border: none; outline: none; color: #fff;
+                       font-size: 15px; width: 100%;">
+            </div>
+            <div id="busca-resultados" class="d-none"></div>
           </div>
-
-          <button onclick="mostrarPagina('sobre')"
-            style="display: flex; align-items: center; gap: 6px; background: rgba(178,151,229,0.15);
-                   border: 0.5px solid rgba(178,151,229,0.35); border-radius: 20px;
-                   padding: 0.3rem 1rem; color: #c9b8f0; font-size: 13px; cursor: pointer;
-                   white-space: nowrap;">
-            pesquisar
-          </button>
 
         </div>
       </div>
@@ -63,7 +59,19 @@
 
     <!-- Barra de navegação entre páginas -->
     <div style="background-color: #1f1c27;">
-      <div class="container d-flex align-items-center justify-content-center">
+      <div class="container d-flex align-items-center justify-content-center" style="position: relative;">
+        <button id="btn-voltar" onclick="voltarPagina()" class="d-none"
+          onmouseenter="this.style.background='rgba(255,255,255,0.15)'; this.style.color='#fff';"
+          onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.color='#c9b8f0';"
+          style="position: absolute; left: 15px; display: flex; align-items: center; gap: 7px;
+                 background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12);
+                 border-radius: 18px; padding: 0.3rem 1rem; color: #c9b8f0; font-size: 16px;
+                 cursor: pointer; transition: background 0.2s, color 0.2s; outline: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="transform: rotate(180deg);">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+          Voltar
+        </button>
         <a href="#" onclick="mostrarPagina('home')"         id="nav-home"      class="nb-link">Início</a>
         <div class="nb-div"></div>
         <a href="#" onclick="mostrarPagina('susdigital')"   id="nav-sus"       class="nb-link">SUS Digital</a>

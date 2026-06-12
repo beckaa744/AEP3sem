@@ -246,7 +246,7 @@ function executarBusca(query) {
   const matches = indiceBusca.filter(item => item.texto.toLowerCase().includes(termo));
 
   if (matches.length === 0) {
-    resultadosContainer.innerHTML = '<div style="color: rgba(255,255,255,0.5); font-size: 12px; padding: 0.5rem 1rem;">Nenhum resultado encontrado</div>';
+    resultadosContainer.innerHTML = '<div style="color: rgba(255,255,255,0.5); font-size: 14px; padding: 0.8rem 1.25rem;">Nenhum resultado encontrado</div>';
     resultadosContainer.classList.remove('d-none');
     return;
   }
@@ -257,21 +257,22 @@ function executarBusca(query) {
   
   lim.forEach(match => {
     const itemDiv = document.createElement('div');
-    itemDiv.style.padding = '0.6rem 1rem';
+    itemDiv.style.padding = '0.8rem 1.25rem';
     itemDiv.style.cursor = 'pointer';
     itemDiv.style.borderBottom = '0.5px solid rgba(255,255,255,0.05)';
     itemDiv.style.transition = 'background 0.2s';
     
-    // Destaca o termo no trecho de texto exibido
+    // Destaca o termo no trecho de texto exibido (comprimento aumentado para 90 caracteres)
     const index = match.texto.toLowerCase().indexOf(termo);
     let snippet = match.texto;
-    if (snippet.length > 60) {
-      const start = Math.max(0, index - 20);
-      const end = Math.min(snippet.length, index + termo.length + 30);
+    if (snippet.length > 90) {
+      const start = Math.max(0, index - 25);
+      const end = Math.min(snippet.length, index + termo.length + 55);
       snippet = (start > 0 ? '...' : '') + snippet.slice(start, end) + (end < snippet.length ? '...' : '');
     }
     
-    const textHighlighted = snippet.replace(new RegExp(termo, 'gi'), m => `<span style="color: #b297e5; font-weight: bold;">${m}</span>`);
+    const escapedTerm = escapeRegExp(termo);
+    const textHighlighted = snippet.replace(new RegExp(escapedTerm, 'gi'), m => `<span style="color: #b297e5; font-weight: bold;">${m}</span>`);
     
     const nomesAmigaveis = {
       home: 'Início',
@@ -283,10 +284,10 @@ function executarBusca(query) {
     };
 
     itemDiv.innerHTML = `
-      <div style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">
+      <div style="font-size: 12px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px;">
         ${nomesAmigaveis[match.pagina] || match.pagina}
       </div>
-      <div style="font-size: 13px; color: #fff; line-height: 1.4;">
+      <div style="font-size: 15px; color: #fff; line-height: 1.4;">
         ${textHighlighted}
       </div>
     `;
@@ -306,6 +307,10 @@ function executarBusca(query) {
   resultadosContainer.classList.remove('d-none');
 }
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 async function irParaERealcar(nomePagina, textoOriginal, termoBusca) {
   console.log(`[Busca] Navegando para '${nomePagina}' para realçar '${termoBusca}'`);
   await mostrarPagina(nomePagina);
@@ -315,14 +320,41 @@ async function irParaERealcar(nomePagina, textoOriginal, termoBusca) {
     const pageDiv = document.getElementById('pagina-' + nomePagina);
     if (!pageDiv) return;
 
+    // Filtro para ignorar nós de estilo ou script
+    const nodeFilter = {
+      acceptNode: function(node) {
+        const parentTagName = node.parentNode ? node.parentNode.tagName : '';
+        if (parentTagName === 'STYLE' || parentTagName === 'SCRIPT') {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    };
+
     // Busca nó de texto (TextNode) contendo o termo
-    const walker = document.createTreeWalker(pageDiv, NodeFilter.SHOW_TEXT, null, false);
+    const walker = document.createTreeWalker(pageDiv, NodeFilter.SHOW_TEXT, nodeFilter, false);
     let textNode = null;
     while (walker.nextNode()) {
       const node = walker.currentNode;
       if (node.nodeValue.toLowerCase().includes(termoBusca.toLowerCase())) {
+        // Se textoOriginal foi informado, garante que o elemento pai contém esse texto completo
+        if (textoOriginal && node.parentNode && !node.parentNode.textContent.toLowerCase().includes(textoOriginal.toLowerCase())) {
+          continue;
+        }
         textNode = node;
         break;
+      }
+    }
+
+    // Se não encontrou no modo estrito, tenta no modo de fallback sem comparar com textoOriginal
+    if (!textNode) {
+      const fallbackWalker = document.createTreeWalker(pageDiv, NodeFilter.SHOW_TEXT, nodeFilter, false);
+      while (fallbackWalker.nextNode()) {
+        const node = fallbackWalker.currentNode;
+        if (node.nodeValue.toLowerCase().includes(termoBusca.toLowerCase())) {
+          textNode = node;
+          break;
+        }
       }
     }
 
@@ -335,9 +367,10 @@ async function irParaERealcar(nomePagina, textoOriginal, termoBusca) {
       // Salva o texto original
       const originalText = textNode.nodeValue;
       
-      // Cria o elemento com realce
+      // Cria o elemento com realce de forma segura usando escape
       const span = document.createElement('span');
-      const regex = new RegExp(`(${termoBusca})`, 'gi');
+      const escapedTerm = escapeRegExp(termoBusca);
+      const regex = new RegExp(`(${escapedTerm})`, 'gi');
       span.innerHTML = originalText.replace(regex, '<mark class="highlight-search">$1</mark>');
 
       // Substitui o nó de texto original
@@ -365,6 +398,20 @@ document.addEventListener('click', (e) => {
   const buscaInput = document.getElementById('busca-input');
   if (resultados && e.target !== buscaInput && !resultados.contains(e.target)) {
     resultados.classList.add('d-none');
+  }
+});
+
+// Fecha o painel de resultados se apertar a tecla Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const resultados = document.getElementById('busca-resultados');
+    if (resultados) {
+      resultados.classList.add('d-none');
+    }
+    const buscaInput = document.getElementById('busca-input');
+    if (buscaInput) {
+      buscaInput.blur();
+    }
   }
 });
 
