@@ -1,6 +1,100 @@
-<div class="page-header" style="padding: 10rem 0 6rem;">
+<style>
+  .seguranca-hero {
+    background: 
+      linear-gradient(180deg, rgba(31, 28, 39, 0.65) 0%, rgba(31, 28, 39, 0.2) 100%),
+      linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+    padding: 10rem 0 6rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  .seguranca-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .seguranca-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 25%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .seguranca-hero-circulo1 {
+    position: absolute;
+    top: 30%; left: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .seguranca-hero-circulo2 {
+    position: absolute;
+    bottom: -30px; right: 30%;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .seguranca-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 0.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .seguranca-hero h1 { 
+    color: #fff; 
+    font-weight: 700; 
+    margin-bottom: 0.75rem; 
+  }
+  .seguranca-hero p  { 
+    color: rgba(255, 255, 255, 0.9); 
+    font-size: 1.1rem; 
+    max-width: 600px; 
+  }
+
+  .passo-num-seguranca {
+    display: inline-block;
+    background-color: #f39c12;
+    color: #fff;
+    border-radius: 50%;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dica-card-seguranca {
+    background: linear-gradient(160deg, #ffffff 60%, #fdf2f2 100%);
+    border: 0.5px solid #f5c6c6;
+    border-left: 4px solid #c0392b;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 3rem 0 4rem;
+  }
+  .dica-card-seguranca h4 { font-size: 1.2rem; font-weight: 600; color: #2e2a36; }
+  .dica-card-seguranca p  { font-size: 1rem; color: #444; margin: 0; }
+</style>
+
+<!-- Hero -->
+<div class="seguranca-hero">
+  <div class="seguranca-hero-circulo1"></div>
+  <div class="seguranca-hero-circulo2"></div>
   <div class="container">
-    <h1>🔒 Dicas de Segurança</h1>
+    <div class="seguranca-hero-badge">🛡️ Proteção &amp; Cuidados</div>
+    <h1 style="font-size: 2rem;">Dicas de Segurança</h1>
     <p>O celular é uma ferramenta maravilhosa, mas assim como no mundo real, é preciso tomar alguns cuidados para não cair em armadilhas. Com algumas dicas simples, você vai se sentir muito mais seguro e tranquilo ao usar o seu aparelho!</p>
   </div>
 </div>
@@ -10,7 +104,7 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">1</div>
+        <div class="passo-num-seguranca">1</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Cuidado com mensagens de estranhos</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Se você receber uma mensagem de um número desconhecido dizendo que ganhou um prêmio, que há um problema com seu banco ou que um familiar está em apuros, <strong>não responda e não clique em nenhum link</strong>.
@@ -19,8 +113,10 @@
           Golpistas usam essas histórias para assustar as pessoas. A melhor coisa a fazer é ligar diretamente para o banco ou para o familiar pelo número que você já conhece.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/seguranca-passo1.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Mensagem suspeita no celular">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/seguranca-passo1.png')">
+          <img src="./assets/imgs/seguranca-passo1.png" class="img-fluid" alt="Mensagem suspeita no celular">
+        </div>
       </div>
     </div>
   </div>
@@ -31,14 +127,16 @@
   <div class="container">
     <div class="row align-items-center g-5 flex-md-row-reverse">
       <div class="col-md-6">
-        <div class="passo-num">2</div>
+        <div class="passo-num-seguranca">2</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Nunca compartilhe sua senha com ninguém</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           A senha do seu celular, do seu banco e do gov.br é como a chave da sua casa: é só sua! <strong>Nenhum banco, nenhum funcionário do governo e nenhum técnico de celular precisa saber a sua senha</strong> para te ajudar.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/seguranca-passo2.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Cadeado protegendo senha">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/seguranca-passo2.png')">
+          <img src="./assets/imgs/seguranca-passo2.png" class="img-fluid" alt="Cadeado protegendo senha">
+        </div>
       </div>
     </div>
   </div>
@@ -49,14 +147,16 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">3</div>
+        <div class="passo-num-seguranca">3</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Desconfie de links enviados por mensagem</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Às vezes chega uma mensagem com um link dizendo "clique aqui para ver sua fatura" ou "acesse aqui para receber seu benefício". <strong>Tenha muito cuidado!</strong> Antes de clicar em qualquer link, pergunte a um filho, neto ou pessoa de confiança se aquilo parece verdadeiro.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/seguranca-passo3.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Link suspeito em mensagem">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/seguranca-passo3.png')">
+          <img src="./assets/imgs/seguranca-passo3.png" class="img-fluid" alt="Link suspeito em mensagem">
+        </div>
       </div>
     </div>
   </div>
@@ -67,14 +167,16 @@
   <div class="container">
     <div class="row align-items-center g-5 flex-md-row-reverse">
       <div class="col-md-6">
-        <div class="passo-num">4</div>
+        <div class="passo-num-seguranca">4</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Mantenha o celular com senha ou digital</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Coloque uma senha ou o desbloqueio pela digital do dedo na tela inicial do seu celular. Assim, se você esquecer o aparelho em algum lugar, ninguém consegue acessar os seus dados. Vá em <strong>Configurações → Segurança → Tela de bloqueio</strong>.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/seguranca-passo4.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Tela de bloqueio com digital">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/seguranca-passo4.png')">
+          <img src="./assets/imgs/seguranca-passo4.png" class="img-fluid" alt="Tela de bloqueio com digital">
+        </div>
       </div>
     </div>
   </div>
@@ -85,18 +187,20 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">5</div>
+        <div class="passo-num-seguranca">5</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Em caso de dúvida, pergunte antes de agir</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Recebeu algo estranho? Não sabe se pode clicar? <strong>Pare tudo e pergunte a alguém de confiança</strong> antes de fazer qualquer coisa. Não existe vergonha em pedir ajuda! Golpistas contam com a pressa e o medo das pessoas.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/seguranca-passo5.png" class="img-fluid rounded-4" style="max-width: 480px; width: 100%;" alt="Pessoa pedindo ajuda a familiar">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/seguranca-passo5.png')">
+          <img src="./assets/imgs/seguranca-passo5.png" class="img-fluid" alt="Pessoa pedindo ajuda a familiar">
+        </div>
       </div>
     </div>
 
-    <div class="dica-card" style="border-left: 4px solid #c0392b;">
+    <div class="dica-card-seguranca">
       <h4>🚨 Lembre-se sempre:</h4>
       <p>Bancos, o governo e operadoras de telefone <strong>nunca</strong> ligam pedindo sua senha, código de segurança ou para você instalar um aplicativo. Se alguém fizer isso, desligue imediatamente e ligue para o número oficial da instituição que você já conhece.</p>
     </div>

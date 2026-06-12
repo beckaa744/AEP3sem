@@ -1,6 +1,64 @@
-<div class="page-header" style="padding: 10rem 0 6rem;">
+<style>
+  .sobre-hero {
+    background: linear-gradient(135deg, #2e2a36 0%, #474354 100%);
+    padding: 10rem 0 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .sobre-hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: 100px;
+    width: 160px; height: 160px;
+    background: rgba(255, 255, 255, 0.04);
+    transform: rotate(45deg);
+  }
+  .sobre-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; left: 8%;
+    width: 120px; height: 120px;
+    background: rgba(255, 255, 255, 0.04);
+    transform: rotate(45deg);
+  }
+  .sobre-hero-tri1 {
+    position: absolute;
+    top: 25%; left: -50px;
+    width: 100px; height: 100px;
+    background: rgba(255, 255, 255, 0.03);
+    transform: rotate(45deg);
+  }
+  .sobre-hero-tri2 {
+    position: absolute;
+    bottom: 20px; right: 22%;
+    width: 140px; height: 140px;
+    background: rgba(255, 255, 255, 0.05);
+    transform: rotate(45deg);
+  }
+  .sobre-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .sobre-hero h1 { color: #fff; font-weight: 600; margin-bottom: 0.75rem; }
+  .sobre-hero p  { color: rgba(255, 255, 255, 0.75); font-size: 1.1rem; max-width: 600px; }
+</style>
+
+<!-- Hero -->
+<div class="sobre-hero">
+  <div class="sobre-hero-tri1"></div>
+  <div class="sobre-hero-tri2"></div>
   <div class="container">
-    <h1>Sobre o Projeto</h1>
+    <div class="sobre-hero-badge">💡 Conheça a Iniciativa</div>
+    <h1 style="font-size: 2rem;">Sobre o Projeto</h1>
     <p>Este site nasceu de um desejo simples: fazer com que a tecnologia seja acessível para todos, independentemente da idade. Acreditamos que aprender a usar o celular não precisa ser complicado nem assustador.</p>
   </div>
 </div>

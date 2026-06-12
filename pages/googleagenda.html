@@ -1,8 +1,87 @@
+<style>
+  .agenda-hero {
+    background: linear-gradient(135deg, #7d3c1a 0%, #c0622a 100%);
+    padding: 10rem 0 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .agenda-hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: 100px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.04);
+    transform: rotate(45deg);
+  }
+  .agenda-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; left: 8%;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.04);
+    transform: rotate(45deg);
+  }
+  .agenda-hero-tri1 {
+    position: absolute;
+    top: 25%; left: -50px;
+    width: 100px; height: 100px;
+    background: rgba(255,255,255,0.03);
+    transform: rotate(45deg);
+  }
+  .agenda-hero-tri2 {
+    position: absolute;
+    bottom: 20px; right: 22%;
+    width: 140px; height: 140px;
+    background: rgba(255,255,255,0.05);
+    transform: rotate(45deg);
+  }
+  .agenda-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1rem;
+  }
+  .agenda-hero h1 { color: #fff; font-weight: 600; margin-bottom: 0.75rem; }
+  .agenda-hero p  { color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; }
+
+  .passo-num-agenda {
+    display: inline-block;
+    background-color: #e53935;
+    color: #fff;
+    border-radius: 50%;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dica-card-agenda {
+    background: linear-gradient(160deg, #ffffff 60%, #fdecea 100%);
+    border: 0.5px solid #f5c6c6;
+    border-left: 4px solid #e53935;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 3rem 0 4rem;
+  }
+  .dica-card-agenda h4 { font-size: 1.2rem; font-weight: 600; color: #2e2a36; }
+  .dica-card-agenda p  { font-size: 1rem; color: #444; margin: 0; }
+</style>
 
 <!-- Hero -->
-<div class="page-hero">
+<div class="agenda-hero">
+  <div class="agenda-hero-tri1"></div>
+  <div class="agenda-hero-tri2"></div>
   <div class="container">
-    <div class="page-hero-badge">📅 Guia de aplicativo</div>
+    <div class="agenda-hero-badge">📅 Guia de aplicativo</div>
     <h1 style="font-size: 2rem;">Google Agenda</h1>
     <p>O seu novo caderno de compromissos digital! Nunca mais esqueça um remédio, consulta ou aniversário.</p>
   </div>
@@ -13,14 +92,16 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">1</div>
+        <div class="passo-num-agenda">1</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como encontrar e abrir a sua Agenda</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
-          Procure na tela do seu celular por um desenho de um calendário. Ele costuma ser branco com o número "31" no meio, rodeado pelas cores azul, vermelho, amarelo e verde. Encontrou? Dê um toque suave nele com o dedo.
+          Procure na tela do seu celular por um desenho de um calendário. Ele costuma ser ter o fundo branco com o número "31" no meio. Encontrou? Dê um toque suave nele com o dedo.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/agenda-passo1.jpeg" class="img-fluid rounded-4" style="max-width: 320px; width: 100%;" alt="Ícone do Google Agenda na tela do celular">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/agenda-passo1.jpeg')">
+          <img src="./assets/imgs/agenda-passo1.jpeg" class="img-fluid" alt="Ícone do Google Agenda na tela do celular">
+        </div>
       </div>
     </div>
   </div>
@@ -31,17 +112,19 @@
   <div class="container">
     <div class="row align-items-center g-5 flex-md-row-reverse">
       <div class="col-md-6">
-        <div class="passo-num">2</div>
+        <div class="passo-num-agenda">2</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Como anotar um novo compromisso</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
-          Quando o aplicativo abrir, você verá os dias do mês. Para anotar algo novo, basta olhar para o canto de baixo da tela (geralmente do lado direito). Você vai ver um botão redondo e colorido com um símbolo de "mais" (+).
+          Quando o aplicativo abrir, você verá os dias do mês. Para anotar algo novo, basta olhar para o canto de baixo da tela (geralmente do lado direito). Você vai ver um botão colorido com um símbolo de "mais" (+).
         </p>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
-          Toque nesse botão. Ele serve para "adicionar" algo novo. Em seguida, toque na opção chamada "Evento".
+          Toque nesse botão. Ele serve para "adicionar" algo novo. Em seguida, parecerá as opções: *"Aniversário", "Tarefa" e "Evento"*. Clique na opção que desejar.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/agenda-passo2.jpeg" class="img-fluid rounded-4" style="max-width: 320px; width: 100%;" alt="Botão + para adicionar evento">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/agenda-passo2.jpeg')">
+          <img src="./assets/imgs/agenda-passo2.jpeg" class="img-fluid" alt="Botão + para adicionar evento">
+        </div>
       </div>
     </div>
   </div>
@@ -52,17 +135,19 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">3</div>
+        <div class="passo-num-agenda">3</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Dando um nome ao seu compromisso</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
-          A agenda abriu uma página em branco para você preencher. Bem no topo, tem uma linha piscando onde está escrito "Adicionar título".
+          A agenda abriu uma página, e no topo, tem uma linha piscando onde está escrito "Adicionar título".
         </p>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Toque ali e o teclado do celular vai aparecer. Digite o que você precisa lembrar. Por exemplo: "Tomar remédio da pressão", "Consulta com o cardiologista", ou "Almoço de domingo".
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/agenda-passo3.jpeg" class="img-fluid rounded-4" style="max-width: 320px; width: 100%;" alt="Campo para adicionar título ao evento">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/agenda-passo3.jpeg')">
+          <img src="./assets/imgs/agenda-passo3.jpeg" class="img-fluid" alt="Campo para adicionar título ao evento">
+        </div>
       </div>
     </div>
   </div>
@@ -73,20 +158,18 @@
   <div class="container">
     <div class="row align-items-center g-5 flex-md-row-reverse">
       <div class="col-md-6">
-        <div class="passo-num">4</div>
+        <div class="passo-num-agenda">4</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">Escolhendo o dia e a hora certa</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Logo abaixo do nome que você digitou, você verá o dia de hoje e o horário. Para mudar o dia, dê um toque em cima da data — um pequeno calendário vai aparecer. Para mudar a hora, toque em cima do horário — um relógio vai aparecer na tela.
         </p>
       </div>
-      <div class="col-md-6">
-        <div class="row g-2">
-          <div class="col-6 text-center">
-            <img src="./assets/imgs/agenda-passo4_1.jpeg" class="img-fluid rounded-4" style="max-width: 220px; width: 100%;" alt="Calendário para escolher data">
-          </div>
-          <div class="col-6 text-center">
-            <img src="./assets/imgs/agenda-passo4_2.jpeg" class="img-fluid rounded-4" style="max-width: 220px; width: 100%;" alt="Relógio para escolher horário">
-          </div>
+      <div class="col-md-6 text-center d-flex flex-wrap gap-3 align-items-center justify-content-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/agenda-passo4_1.jpeg')">
+          <img src="./assets/imgs/agenda-passo4_1.jpeg" class="img-fluid" alt="Calendário para escolher data">
+        </div>
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/agenda-passo4_2.jpeg')">
+          <img src="./assets/imgs/agenda-passo4_2.jpeg" class="img-fluid" alt="Relógio para escolher horário">
         </div>
       </div>
     </div>
@@ -98,18 +181,20 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-md-6">
-        <div class="passo-num">5</div>
+        <div class="passo-num-agenda">5</div>
         <h2 class="fw-bold mb-3" style="color: #2e2a36;">O passo mais importante: Salvar!</h2>
         <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">
           Depois de colocar o nome, o dia e a hora, olhe para a parte bem de cima da tela, do lado direito. Você vai ver a palavra "Salvar". Dê um toque nela. Pronto! A tela vai fechar e você verá o seu compromisso anotado no dia correto.
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="./assets/imgs/agenda-passo5.jpeg" class="img-fluid rounded-4" style="max-width: 320px; width: 100%;" alt="Botão Salvar na tela do aplicativo">
+      <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+        <div class="phone-mockup" onclick="abrirLightbox('./assets/imgs/agenda-passo5.jpeg')">
+          <img src="./assets/imgs/agenda-passo5.jpeg" class="img-fluid" alt="Botão Salvar na tela do aplicativo">
+        </div>
       </div>
     </div>
 
-    <div class="dica-card">
+    <div class="dica-card-agenda">
       <h4>💡 Não tenha medo de errar!</h4>
       <p>Se você anotar algo no dia errado ou escrever uma letra a mais, não tem problema nenhum! O celular não vai estragar se você apertar o botão errado. Se precisar apagar, é só tocar em cima da anotação que você fez, procurar o desenho de uma lixeira (que fica no topo da tela) e tocar nela. O compromisso sumirá na mesma hora.</p>
     </div>
