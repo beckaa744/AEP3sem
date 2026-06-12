@@ -111,11 +111,14 @@ async function mostrarPagina(nomePagina, registrarHistorico = true) {
   // Gerencia a visibilidade do botão "Voltar"
   const btnVoltar = document.getElementById('btn-voltar');
   if (btnVoltar) {
+    const scrollContainer = document.querySelector('.nb-links-scroll');
     if (historico.estaVazia()) {
       btnVoltar.classList.add('d-none');
+      if (scrollContainer) scrollContainer.classList.remove('has-back-btn');
       console.log(`[Router] Pilha vazia. Escondendo botão Voltar.`);
     } else {
       btnVoltar.classList.remove('d-none');
+      if (scrollContainer) scrollContainer.classList.add('has-back-btn');
       console.log(`[Router] Pilha possui itens. Exibindo botão Voltar.`);
     }
   }

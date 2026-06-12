@@ -25,7 +25,7 @@
 
     <!-- Barra superior: logo + busca -->
     <div style="padding: 0.65rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.08);">
-      <div class="container d-flex align-items-center justify-content-between">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
 
         <a href="#" onclick="mostrarPagina('home')"
           style="font-size: 30px; font-weight: 500; text-decoration: none; letter-spacing: -0.2px;
@@ -34,9 +34,8 @@
           SeConecte
         </a>
 
-        <div class="d-flex align-items-center gap-3">
-
-          <div style="position: relative; width: 480px;">
+        <div class="w-100 d-flex justify-content-center justify-content-md-end" style="max-width: 480px;">
+          <div class="busca-container">
             <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07);
                         border: 0.5px solid rgba(255,255,255,0.12); border-radius: 24px;
                         padding: 0.45rem 1.1rem; width: 100%;">
@@ -52,37 +51,39 @@
             </div>
             <div id="busca-resultados" class="d-none"></div>
           </div>
-
         </div>
+
       </div>
     </div>
 
     <!-- Barra de navegação entre páginas -->
     <div style="background-color: #1f1c27;">
-      <div class="container d-flex align-items-center justify-content-center" style="position: relative;">
+      <div class="container d-flex align-items-center justify-content-center" style="position: relative; min-height: 48px; padding: 0 15px;">
         <button id="btn-voltar" onclick="voltarPagina()" class="d-none"
           onmouseenter="this.style.background='rgba(255,255,255,0.15)'; this.style.color='#fff';"
           onmouseleave="this.style.background='rgba(255,255,255,0.07)'; this.style.color='#c9b8f0';"
           style="position: absolute; left: 15px; display: flex; align-items: center; gap: 7px;
                  background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12);
                  border-radius: 18px; padding: 0.3rem 1rem; color: #c9b8f0; font-size: 16px;
-                 cursor: pointer; transition: background 0.2s, color 0.2s; outline: none;">
+                 cursor: pointer; transition: background 0.2s, color 0.2s; outline: none; z-index: 10;">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="transform: rotate(180deg);">
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
           </svg>
           Voltar
         </button>
-        <a href="#" onclick="mostrarPagina('home')"         id="nav-home"      class="nb-link">Início</a>
-        <div class="nb-div"></div>
-        <a href="#" onclick="mostrarPagina('susdigital')"   id="nav-sus"       class="nb-link">SUS Digital</a>
-        <div class="nb-div"></div>
-        <a href="#" onclick="mostrarPagina('whatsapp')"     id="nav-whats"     class="nb-link">WhatsApp</a>
-        <div class="nb-div"></div>
-        <a href="#" onclick="mostrarPagina('googleagenda')" id="nav-agenda"    class="nb-link">Google Agenda</a>
-        <div class="nb-div"></div>
-        <a href="#" onclick="mostrarPagina('seguranca')"    id="nav-seguranca" class="nb-link">Segurança</a>
-        <div class="nb-div"></div>
-        <a href="#" onclick="mostrarPagina('sobre')"        id="nav-sobre"     class="nb-link">Sobre</a>
+        <div class="nb-links-scroll">
+          <a href="#" onclick="mostrarPagina('home')"         id="nav-home"      class="nb-link">Início</a>
+          <div class="nb-div"></div>
+          <a href="#" onclick="mostrarPagina('susdigital')"   id="nav-sus"       class="nb-link">SUS Digital</a>
+          <div class="nb-div"></div>
+          <a href="#" onclick="mostrarPagina('whatsapp')"     id="nav-whats"     class="nb-link">WhatsApp</a>
+          <div class="nb-div"></div>
+          <a href="#" onclick="mostrarPagina('googleagenda')" id="nav-agenda"    class="nb-link">Google Agenda</a>
+          <div class="nb-div"></div>
+          <a href="#" onclick="mostrarPagina('seguranca')"    id="nav-seguranca" class="nb-link">Segurança</a>
+          <div class="nb-div"></div>
+          <a href="#" onclick="mostrarPagina('sobre')"        id="nav-sobre"     class="nb-link">Sobre</a>
+        </div>
       </div>
     </div>
 
